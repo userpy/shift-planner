@@ -1,0 +1,44 @@
+[
+  {
+    "model": "shifts.outsourcingrequest",
+    "pk": 1,
+    "fields": {
+      "headquater": 1,
+      "organization": 1,
+      "agency": 1,
+      "start": "2017-12-31",
+      "end": "2018-01-31",
+      "state": "accepted",
+      "dt_accepted": "2017-12-30",
+      "dt_ready": "2017-12-30"
+    }
+  },
+  {
+    "model": "shifts.outsourcingrequest",
+    "pk": 2,
+    "fields": {
+      "headquater": 1,
+      "organization": 2,
+      "agency": 2,
+      "start": "2018-06-01",
+      "end": "2018-06-30",
+      "state": "accepted",
+      "dt_accepted": "2018-05-28",
+      "dt_ready": "2018-05-29"
+    }
+  },
+  {
+    "model": "shifts.outsourcingrequest",
+    "pk": 3,
+    "fields": {
+      "headquater": 2,
+      "organization": 3,
+      "agency": 2,
+      "start": "2018-06-01",
+      "end": "2018-06-30",
+      "state": "accepted",
+      "dt_accepted": "2018-05-28",
+      "dt_ready": "2018-05-29"
+    }
+  }
+]

@@ -1,0 +1,67 @@
+[
+  {
+    "model": "shifts.outsourcingshift",
+    "pk": 1,
+    "fields": {
+      "state": "wait",
+      "start": "2018-06-10",
+      "end": "2018-06-11",
+      "worktime": "600",
+      "job": 1,
+      "request": 1,
+      "dt_change": "2018-05-01",
+      "headquater": 1,
+      "agency": 1,
+      "start_date": "2018-09-01"
+    }
+  },
+  {
+    "model": "shifts.outsourcingshift",
+    "pk": 2,
+    "fields": {
+      "state": "wait",
+      "start": "2018-06-20",
+      "end": "2018-06-21",
+      "worktime": "600",
+      "job": 2,
+      "request": 1,
+      "dt_change": "2018-05-10",
+      "headquater": 1,
+      "agency": 1,
+      "start_date": "2018-09-01"
+    }
+  },
+  {
+    "model": "shifts.outsourcingshift",
+    "pk": 3,
+    "fields": {
+      "state": "wait",
+      "start": "2018-06-01",
+      "end": "2018-06-02",
+      "worktime": "600",
+      "job": 1,
+      "request": 2,
+      "dt_change": "2018-05-01",
+      "headquater": 1,
+      "agency": 2,
+      "start_date": "2018-09-01"
+    }
+  },
+  {
+    "model": "shifts.outsourcingshift",
+    "pk": 10,
+    "fields": {
+      "state": "accept",
+      "start": "2018-04-01",
+      "end": "2018-04-15",
+      "worktime": "600",
+      "job": 1,
+      "agency_employee": 1,
+      "request": 2,
+      "dt_change": "2018-03-29",
+      "headquater": 1,
+      "agency": 2,
+      "start_date": "2018-09-01"
+    }
+  }
+]

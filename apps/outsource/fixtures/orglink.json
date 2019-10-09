@@ -1,0 +1,29 @@
+[
+  {
+    "model": "outsource.orglink",
+    "pk": 1,
+    "fields": {
+      "headquater": 1,
+      "organization": 1,
+      "agency": 1
+    }
+  },
+  {
+    "model": "outsource.orglink",
+    "pk": 2,
+    "fields": {
+      "headquater": 1,
+      "organization": 2,
+      "agency": 1
+    }
+  },
+  {
+    "model": "outsource.orglink",
+    "pk": 3,
+    "fields": {
+      "headquater": 2,
+      "organization": 3,
+      "agency": 2
+    }
+  }
+]

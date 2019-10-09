@@ -1,0 +1,93 @@
+<!-- closed tab template -->
+<script type="text/x-template" id="claims-tab-closed_template">
+	<div class="col-inner" ref="col-body">
+		<div v-if="detailed" class="block claim-detail">
+			<h3>
+				<span class="button f_n" v-on:click="onBackClick"><i class="fa fa-chevron-left"></i></span>
+				<span class="label" v-text="'Претензия '+ detailed.headquater.prefix + detailed.number"></span>
+			</h3>
+			<table class="lpair-table">
+				<tbody>
+					<tr>
+						<td>Вид претензии</td>
+						<td v-text="detailed.claim_type.name"></td>
+					</tr>
+					<tr>
+						<td>Агентство</td>
+						<td v-text="detailed.agency.name"></td>
+					</tr>
+					<tr>
+						<td>Открыта</td>
+						<td :text-content.prop="detailed.dt_created | fullDate"></td>
+					</tr>
+					<tr>
+						<td>Закрыта</td>
+						<td :text-content.prop="detailed.dt_status_changed | fullDate"></td>
+					</tr>
+					<tr class="row-no-padding-top">
+						<td>Статус</td>
+						<td>
+							<span style="float: left;padding: 8px 8px 0 0;">Закрыта</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="text">
+				<div v-text="detailed.text" style="padding-bottom: 10px"></div>
+				<a v-if="detailed.attachments" v-for="f in detailed.attachments" :href="f.attachment" v-text="f.filename +' '" target="_blank"></a>
+			</div>
+		</div>
+		<div v-if="detailed" class="block claim-detail">
+			<h3>&nbsp;</h3>
+			<messages :messages="messages"></messages>
+			<br>
+			<br>
+		</div>
+		<div v-if="!detailed">
+			<table class="light-table la-fixed">
+				<thead>
+					<tr>
+						<td>Номер</td>
+						<td class="agency-cell">Агентство</td>
+						<td>Вид претензии</td>
+						<td>Открыта</td>
+						<td>Закрыта</td>
+						<td class="text-cell">Текст</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="row in claims" class="cursor-pointer" v-on:click="onRowClick(row)">
+						<td v-text="row.number"></td>
+						<td v-text="row.agency.name" class="agency-cell"></td>
+						<td v-text="row.claim_type.name"></td>
+						<td :text-content.prop="row.dt_created | fullDate"></td>
+						<td :text-content.prop="row.dt_status_changed | fullDate"></td>
+						<td v-text="row.shorTtext" class="text-cell"></td>
+					</tr>
+				</tbody>
+			</table>
+			<div style="margin: 20px 0">
+				<center>
+					<div class="button f_n" v-on:click="loadMoreRows" v-if="currPage < pages">Загрузить еще</div>
+					<div class="button f_n borderless disabled" v-on:click="loadMoreRows" v-if="currPage == pages">Достигнут конец списка</div>
+				</center>
+			</div>
+		</div>
+		<vue-loading-screen
+			v-if="isLoading"
+			:key="'loading'"
+			:target="colBody"
+			:backgroundColor="'white'"
+			:height-until="'allScreen'"
+		></vue-loading-screen>
+		<vue-loading-screen
+			v-if="!isLoading && isMounted && !claims.length"
+			:key="'empty'"
+			:target="colBody"
+			:message="'Нет данных для отображения'"
+			:type="'text'"
+			:height-until="'allScreen'"
+		></vue-loading-screen>
+	</div>
+</script>
+<!-- end closed tab template -->

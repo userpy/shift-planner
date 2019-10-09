@@ -1,0 +1,20 @@
+.pagination{
+	margin: 20px 0;
+	border: 1px solid #d9dde5;
+	border-right: 0;
+	border-radius: 2px;
+	overflow: hidden;
+	white-space: nowrap;
+	display: inline-block;
+}
+.pagination .page{
+	border-right: 1px solid #d9dde5;
+	display: inline-block;
+	padding: 5px;
+	font-size: 12px;
+	cursor: pointer;
+}
+.pagination .page.selected{
+	background: #325595;
+  color: #fff;
+}

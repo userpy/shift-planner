@@ -1,0 +1,30 @@
+.time-input-with-dropdown {
+	height: 40px;
+	border: 1px solid #ebedf2;
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+.time-input-with-dropdown .time-input {
+	display: inline-block;
+	width: 55px;
+	border: none;
+	height: 100%;
+	padding: 10px;
+	vertical-align: top;
+}
+
+.time-input-with-dropdown .button {
+	padding: 11px 5px;
+	border: 0;
+	border-left: 1px solid #ebedf2;
+	height: 100%;
+	position: relative;
+	cursor: pointer;
+	vertical-align: top;
+}
+
+.time-input-with-dropdown .button:hover {
+	border-color: #ebedf2;
+	background-color: #f4f5f8;
+}

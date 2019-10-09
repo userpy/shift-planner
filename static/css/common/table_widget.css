@@ -1,0 +1,227 @@
+.hor-flex-parent {
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-webkit-flex-wrap: nowrap;
+	-ms-flex-wrap: nowrap;
+	flex-wrap: nowrap;
+	-webkit-justify-content: flex-start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+	-webkit-align-content: flex-start;
+	-ms-flex-line-pack: start;
+	align-content: flex-start;
+	-webkit-align-items: stretch;
+	-ms-flex-align: stretch;
+	align-items: stretch;
+}
+
+.ver-flex-parent {
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-flex-wrap: nowrap;
+	-ms-flex-wrap: nowrap;
+	flex-wrap: nowrap;
+	-webkit-justify-content: flex-start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+	-webkit-align-content: flex-start;
+	-ms-flex-line-pack: start;
+	align-content: flex-start;
+	-webkit-align-items: stretch;
+	-ms-flex-align: stretch;
+	align-items: stretch;
+}
+
+.hor-flex-child {
+	-webkit-order: 0;
+	-ms-flex-order: 0;
+	order: 0;
+	-webkit-flex: 0 1 auto;
+	-ms-flex: 0 1 auto;
+	flex: 0 1 auto;
+	-webkit-align-self: auto;
+	-ms-flex-item-align: auto;
+	align-self: auto;
+}
+
+.ver-flex-child-long,
+.hor-flex-child-long {
+	-webkit-order: 0;
+	-ms-flex-order: 0;
+	order: 0;
+	-webkit-flex: 1 1 auto;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	-webkit-align-self: auto;
+	-ms-flex-item-align: auto;
+	align-self: auto;
+}
+
+.table-widget-wrap {
+	overflow: visible;
+}
+
+.table-widget {
+	color: #575962;
+	min-height: 400px;
+	min-width: 1100px;
+	position: relative;
+}
+
+.table-widget .head-butts {
+	position: absolute;
+	top: -53px;
+}
+
+.table-widget .head-butts button {
+	margin-right: 4px;
+}
+
+.table-widget .table-header-row {
+	height: 42px;
+	overflow: hidden;
+}
+
+.table-widget .date-switcher-row-padding {
+	padding: 14px 0 30px 7px;
+}
+
+.table-widget.loading {
+	pointer-events: none;
+	opacity: 0.6;
+	transition: all 0.2s;
+	cursor: progress;
+}
+
+.table-widget .tw-col-1 {
+	width: 280px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	border-right: 1px solid #ebedf2;
+}
+
+.table-widget .tw-head {
+	border-bottom: 1px solid #ebedf2;
+}
+
+.table-widget .tw-head .date-switcher {
+	padding: 7px 0 15px 7px;
+}
+
+.table-widget .tw-body-bg-day-cols {
+	position: absolute;
+	width: 100%;
+}
+
+.table-widget .tw-body {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	transform: translateZ(0px);
+}
+
+.table-widget .tw-body .tw-row {
+	background: #fff;
+	min-height: 54px;
+	border-bottom: 1px solid #ebedf2;
+}
+
+.table-widget .tw-body .tw-row .tw-u-row {
+	height: 54px;
+	position: relative;
+}
+
+.table-widget .tw-body .tw-row:hover {
+	background: #fcfcfc;
+}
+
+.table-widget .tw-body .row-separator {
+	background: #fff;
+	min-height: 0;
+	border-bottom: 1px solid #ebedf2;
+}
+
+.table-widget .tw-body .row-separator .tw-col-2 {
+	padding: 7px;
+	opacity: 0.7;
+}
+
+.table-widget .tw-footer .footer-summ-row {
+	height: 36px;
+	overflow: hidden;
+}
+
+.table-widget .tw-footer .footer-summ-row .total-day-summ {
+	text-align: center;
+	font-weight: bold;
+	opacity: 0.7;
+	padding: 10px;
+	border-right: 1px solid #ebedf2;
+}
+
+.table-widget .empty-table-placeholder {
+	text-align: center;
+	padding: 30px;
+	text-decoration: italic;
+	opacity: 0.6;
+}
+
+.table-widget .tw-row {
+	width: 100%;
+}
+
+.table-widget .tw-body-blocks .tw-row,
+.table-widget .tw-body-bg-day-cols .tw-row,
+.table-widget .tw-body-blocks .tw-u-row,
+.table-widget .tw-body-bg-day-cols .tw-u-row {
+	height: 100%;
+}
+
+.empl-block .icon {
+	width: 41px;
+	height: 30px;
+	overflow: hidden;
+	margin: 10px 0 12px 7px;
+	padding: 4px;
+}
+
+.empl-block .icon i {
+	font-size: 25px;
+}
+
+.empl-block .name {
+	padding: 11px 10px 0;
+	overflow-y: hidden;
+}
+
+.empl-block .name .name-head {
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: inline-block;
+	white-space: nowrap;
+	max-width: 130px;
+	font-weight: bold;
+}
+
+.empl-block .name .name-captions {
+	position: relative;
+	display: inline-block;
+	top: -9px;
+	font-size: 12px;
+}
+
+.empl-block .top-summ {
+	font-weight: bold;
+	padding: 10px 4px;
+	text-align: center;
+	min-width: 80px;
+	opacity: 0.7;
+}

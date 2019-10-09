@@ -1,0 +1,35 @@
+[
+  {
+    "model": "outsource.organization",
+    "pk": 1,
+    "fields": {
+      "name": "Организация №1",
+      "code": "city_1",
+      "kind": "head",
+      "parent": null,
+      "headquater": 1
+    }
+  },
+  {
+    "model": "outsource.organization",
+    "pk": 2,
+    "fields": {
+      "name": "Организация №1",
+      "code": "store_1",
+      "kind": "store",
+      "parent": 1,
+      "headquater": 1
+    }
+  },
+  {
+    "model": "outsource.organization",
+    "pk": 3,
+    "fields": {
+      "name": "Организация №1",
+      "code": "store_2",
+      "kind": "store",
+      "parent": 1,
+      "headquater": 2
+    }
+  }
+]

@@ -1,0 +1,110 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block page-js %}
+{% endblock page-js %}
+
+
+
+{% block page %}
+<!-- begin:: Page -->
+<div class="m-grid m-grid--hor m-grid--root m-page">
+	<!-- BEGIN: Header -->
+	<header class="m-grid__item    m-header " data-minimize-offset="200" data-minimize-mobile-offset="200">
+		<div class="m-container m-container--fluid m-container--full-height">
+			<div class="m-stack m-stack--ver m-stack--desktop">
+				<!-- BEGIN: Brand -->
+				{% include "base/includes/brand.html" %}
+				<!-- END: Brand -->
+				<div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
+					<!-- BEGIN: Horizontal Menu -->
+					{# include "includes/horisontal_menu.html" #}
+					<!-- END: Horizontal Menu -->
+					<!-- BEGIN: Topbar -->
+					{% include "base/includes/topbar.html" %}
+					<!-- END: Topbar -->
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- END: Header -->
+	<!-- begin::Body -->
+	<div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+		<!-- BEGIN: Left Aside -->
+		{% include "base/includes/left_aside.html" %}
+		<!-- END: Left Aside -->
+		<div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+			<div class="m-content">
+				<!-- page body alert here -->
+				<div class="m-portlet m-portlet--mobile">
+					<div class="m-portlet__head">
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">
+									Рассмотрение заявок на аутсорсинг персонала
+								</h3>
+							</div>
+						</div>
+					</div>
+					<div class="m-portlet__body">
+						<!--begin: Search Form -->
+						<div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
+							<div class="row align-items-center">
+								<div class="col-xl-8 order-2 order-xl-1">
+									<div class="form-group m-form__group row align-items-center">
+										<div class="col-md-4">
+											<div class="m-form__group m-form__group--inline">
+												<div class="m-form__label">
+													<label>
+														Статус:
+													</label>
+												</div>
+												<div class="m-form__control">
+													<select class="form-control m-bootstrap-select" id="m_form_status">
+														<option value="">
+															Все
+														</option>
+														<option value="accepted">
+															Подтвержденные
+														</option>
+														<option value="ready">
+															Неподтвержденные
+														</option>
+													</select>
+												</div>
+											</div>
+											<div class="d-md-none m--margin-bottom-10"></div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!--end: Search Form -->
+						<!--begin: Datatable -->
+						<div class="m_datatable" id="ajax_data"></div>
+						<!--end: Datatable -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end:: Body -->
+	<!-- begin::Footer -->
+	{% include "base/includes/footer.html" %}
+	<!-- end::Footer -->
+</div>
+<!-- end:: Page -->
+<!-- begin::Quick Sidebar -->
+
+<!-- end::Quick Sidebar -->
+<!-- begin::Scroll Top -->
+<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
+	<i class="la la-arrow-up"></i>
+</div>
+<!-- end::Scroll Top -->
+<!-- begin::Quick Nav -->
+{% endblock page %}
+
+

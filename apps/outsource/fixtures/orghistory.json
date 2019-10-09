@@ -1,0 +1,50 @@
+[
+  {
+    "model": "employees.orghistory",
+    "pk": 1,
+    "fields": {
+      "headquater": 1,
+      "organization": 1,
+      "agency_employee": 1,
+      "number": "Орг_1_ТН_1",
+      "start": "2017-01-01",
+      "end": null
+    }
+  },
+  {
+    "model": "employees.orghistory",
+    "pk": 2,
+    "fields": {
+      "headquater": 1,
+      "organization": 2,
+      "agency_employee": 1,
+      "number": "Орг_1_ТН_2",
+      "start": "2017-01-01",
+      "end": "2019-01-01"
+    }
+  },
+  {
+    "model": "employees.orghistory",
+    "pk": 3,
+    "fields": {
+      "headquater": 1,
+      "organization": 2,
+      "agency_employee": 2,
+      "number": "ТН сотрудника в Орг-ции номер 2",
+      "start": "2017-01-01",
+      "end": null
+    }
+  },
+  {
+    "model": "employees.orghistory",
+    "pk": 4,
+    "fields": {
+      "headquater": 2,
+      "organization": 3,
+      "agency_employee": 3,
+      "number": "ТН сотрудника в Орг-ции номер 2",
+      "start": "2017-01-01",
+      "end": null
+    }
+  }
+]

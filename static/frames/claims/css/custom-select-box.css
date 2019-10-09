@@ -1,0 +1,324 @@
+.custom-select-box {
+	padding: 0;
+}
+.custom-select-box.enabled {
+	border-color: #109a5e;
+}
+.custom-select-box .csb-label {
+	height: inherit;
+	padding: 11px 5px;
+	padding-right: 22px;
+	padding-top: 9;
+}
+.custom-select-box .csb-label:hover {
+	background: #d6dae2;
+}
+.custom-select-box .csb-label:active {
+	box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.2);
+}
+.custom-select-box.iconic-label .csb-label:before {
+	padding-right: 5px;
+}
+.custom-select-box.iconical {
+	width: 42px;
+	min-width: 42px;
+}
+.custom-select-box.iconical .csb-label {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+}
+.custom-select-box.iconical .csb-label:after {
+	top: 13px;
+}
+.custom-select-box.iconical .csb-label:before {
+	position: absolute;
+	font-size: 18px;
+	left: 9px;
+	top: 9px;
+}
+.custom-select-box.width-auto .level-3:before {
+	font-size: 2px;
+	left: 6px;
+	position: relative;
+}
+.csb-dd {
+	z-index: 5;
+}
+.csb-dd .csb-options-wrap {
+	width: 237px;
+	border: 1px solid #e6e8ed;
+	border-radius: 2px;
+	margin-top: 5px;
+	padding: 10px;
+	background: #fff;
+	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.4);
+	font-size: 12px;
+}
+.csb-dd .csb-options-wrap .csb-option {
+	border-radius: 2px;
+	white-space: normal;
+	line-height: 11px;
+}
+.csb-dd .csb-options-wrap .csb-option .addition-info {
+	color: #808080;
+	padding: 4px 0 0px;
+}
+.csb-dd .csb-options-wrap .csb-option.level-1:not(.fa2) {
+	padding-left: 8;
+}
+.csb-dd .csb-options-wrap .csb-option.level-2:not(.fa2) {
+	padding-left: 16;
+}
+.csb-dd .csb-options-wrap .csb-option.level-3:not(.fa2) {
+	padding-left: 24;
+}
+.csb-dd .csb-options-wrap .csb-option.level-4:not(.fa2),
+.csb-dd .csb-options-wrap .csb-option.level-5:not(.fa2),
+.csb-dd .csb-options-wrap .csb-option.level-6:not(.fa2),
+.csb-dd .csb-options-wrap .csb-option.level-7:not(.fa2) {
+	padding-left: 32;
+}
+.csb-dd .csb-options-wrap .csb-option:hover {
+	background: #d6dae2;
+}
+.csb-dd .csb-options-wrap .csb-option.selected {
+	background: rgba(214,218,226,0.5);
+}
+.csb-dd .csb-options-wrap .csb-option.selected[data-title-line="true"] {
+	background: transparent;
+}
+.csb-dd .csb-options-wrap .csb-option.fa2:before {
+	padding-right: 7px;
+	width: 16px;
+	position: relative;
+}
+.csb-dd .csb-options-wrap .csb-option.fa2.fa-square:before,
+.csb-dd .csb-options-wrap .csb-option.fa2.fa-minus:before {
+	font-size: 1px;
+	left: 8px;
+}
+.csb-dd.multiselect .csb-option.selected {
+	background: transparent;
+}
+.csb-dd.multiselect .csb-option:hover {
+	background: #d6dae2;
+}
+.csb-dd.multiselect .csb-option:before {
+	position: relative;
+}
+/* custom select */
+.custom-select-box {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	background: #fff;
+	border: 1px solid;
+	min-width: 80px;
+}
+.custom-select-box.searchable .csb-label {
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.custom-select-box.searchable .select-options,
+.custom-select-box.searchable .select-search {
+	display: inline-block;
+	height: 100%;
+	float: none;
+	background: transparent;
+	position: relative;
+}
+.custom-select-box.searchable .select-options {
+	position: relative;
+	padding-right: 3px;
+	max-width: 80%;
+	overflow: hidden;
+}
+.custom-select-box.searchable .select-options .option {
+	max-width: 100%;
+	padding: 4px;
+	margin: 4px 2px;
+	border-radius: 2px;
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.custom-select-box.searchable .select-search {
+	border-radius: 0;
+	border: none;
+	padding-right: 24px;
+}
+.custom-select-box.searchable.multiSelect .option {
+	padding: 6px 4px;
+	background: #c0c2c7;
+	max-width: 150px;
+	color: #fff;
+	font-size: 12px;
+}
+.custom-select-box.searchable.multiSelect .select-options:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 8px;
+	height: 19px;
+	border-left: 1px solid #d9dde5;
+}
+.custom-select-box .csb-options-wrap {
+	display: none;
+}
+.custom-select-box .csb-label {
+	padding: 5px;
+	text-align: left;
+	padding-right: 22px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.custom-select-box .csb-label:hover {
+	background: #f5f5f5;
+}
+.custom-select-box .csb-label:after {
+	content: "\25BC";
+	font-size: 9px;
+	position: absolute;
+	right: 3px;
+	top: 11px;
+}
+.custom-select-box .csb-label.not-full {
+	color: #11bae2;
+}
+.csb-dd {
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.csb-dd .csb-options-wrap {
+	top: 100%;
+	left: -1;
+	right: -1;
+	max-height: 46%;
+	min-height: 5px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	border-top: 0;
+}
+.csb-dd .csb-options-wrap.auto-width-try .csb-label,
+.csb-dd .csb-options-wrap.auto-width-try .csb-option {
+	display: inline-block;
+	white-space: nowrap !important;
+}
+.csb-dd .csb-options-wrap.clean-design .csb-option i {
+	padding-right: 10px;
+}
+.csb-dd .csb-options-wrap.clean-design .csb-option.selected {
+	background: transparent;
+	font-weight: bold;
+}
+.csb-dd .csb-label,
+.csb-dd .csb-option {
+	padding: 5px;
+	text-align: left;
+}
+.csb-dd .csb-option {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	position: relative;
+	cursor: pointer;
+}
+.csb-dd .csb-option i {
+	padding-right: 5px;
+	width: 23px;
+}
+.csb-dd .csb-option:hover {
+	background: #add8e6;
+}
+.csb-dd .csb-label {
+	height: inherit;
+	padding-right: 22px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.csb-dd .csb-label:hover {
+	background: #f5f5f5;
+}
+.csb-dd .csb-label:after {
+	content: "в–ј";
+	font-size: 9px;
+	position: absolute;
+	right: 3px;
+	top: 11px;
+}
+.csb-dd .csb-option[data-icon] {
+	padding-left: 22px;
+}
+.csb-dd .csb-option[data-icon]:before {
+	position: absolute !important;
+	left: 1px;
+}
+.csb-dd .csb-option[data-icon].level-1 {
+	padding-left: 30;
+}
+.csb-dd .csb-option[data-icon].level-1:before {
+	left: 9;
+}
+.csb-dd .csb-option[data-icon].level-2 {
+	padding-left: 38;
+}
+.csb-dd .csb-option[data-icon].level-2:before {
+	left: 17;
+}
+.csb-dd .csb-option[data-icon].level-2.fa-cube:before {
+	left: 19;
+}
+.csb-dd .csb-option[data-icon].level-3 {
+	padding-left: 46;
+}
+.csb-dd .csb-option[data-icon].level-3:before {
+	left: 25;
+}
+.csb-dd .csb-option[data-icon].level-4,
+.csb-dd .csb-option[data-icon].level-5,
+.csb-dd .csb-option[data-icon].level-6,
+.csb-dd .csb-option[data-icon].level-7 {
+	padding-left: 54;
+}
+.csb-dd .csb-option[data-icon].level-4:before,
+.csb-dd .csb-option[data-icon].level-5:before,
+.csb-dd .csb-option[data-icon].level-6:before,
+.csb-dd .csb-option[data-icon].level-7:before {
+	left: 33;
+}
+.csb-dd .csb-option[data-title-line="true"] {
+	color: #808080;
+	padding: 7px 5px 2px;
+}
+.csb-dd .csb-option[data-title-line="true"]:hover {
+	background: transparent !important;
+}
+.csb-dd .csb-option[data-title-line="true"]:before {
+	display: none !important;
+}
+.csb-dd .csb-option[data-overlined="true"] {
+	border-top: 1px solid #d9dde5;
+}
+.csb-dd .csb-option[data-underlined="true"] {
+	border-bottom: 1px solid #d9dde5;
+}
+.csb-dd.multiSelect .csb-option:before {
+	display: inline-block;
+	width: 15px;
+	height: 14px;
+	content: "";
+	overflow: hidden;
+	float: left;
+}
+.csb-dd.multiSelect .csb-option.selected {
+	background: transparent;
+}
+.csb-dd.multiSelect .csb-option.selected:before {
+	content: "вњ“";
+	font-weight: bold;
+}
+/* END custom select */

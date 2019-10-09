@@ -1,0 +1,80 @@
+{% load static %}
+{% load compress %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- begin::Head -->
+<head>
+	<meta charset="utf-8"/>
+	<title>{% block page-title %}
+		Портал внешнего персонала
+	{% endblock page-title %}
+	</title>
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!--begin::Web font -->
+    {% compress js %}
+	<script src="{% static "fonts/webfont.js" %}"></script>
+    {% endcompress %}
+	<script>
+		WebFont.load({
+			google: {"families":["Roboto:300,400,500,600,700"]},
+			active: function () {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+	<!--end::Web font -->
+	<!--begin::Base Styles -->
+	{% block base-styles %}
+		{% compress css %}
+		<link href="{% static "assets/vendors/base/vendors.bundle.css" %}" rel="stylesheet" type="text/css"/>
+		<link href="{% static "assets/demo/default/base/style.bundle.css" %}" rel="stylesheet" type="text/css"/>
+		<link href="{% static "css/override.css" %}" rel="stylesheet" type="text/css"/>
+		<link href="{% static "css/ie.css" %}" rel="stylesheet" type="text/css"/>
+		{% endcompress %}
+	{% endblock base-styles %}
+	<!--end::Base Styles -->
+	<link rel="shortcut icon" href="{%  static "img/favicon.png" %}" />
+	{% block page-styles %}
+	{% endblock page-styles %}
+	
+	{% include "base/components/ae_vue_pack.html" %}
+</head>
+<!-- end::Head -->
+<!-- end::Body -->
+
+<body class="m-brand--minimize m-aside-left--minimize {% block body-classes %} m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default {% endblock body-classes %}">
+<!-- begin:: Page -->
+
+{% block page %}
+	<h1>Hello, {{ user.get_username }}</h1>
+	<p><a href="{% url 'logout_page' %}">Выйти</a></p>
+{% endblock page %}
+<!-- end:: Page -->
+<!--begin::Base Scripts -->
+{% block base-js %}
+	{% compress js %}
+	<script src="{% static "assets/vendors/base/vendors.bundle.js" %}" type="text/javascript"></script>
+	<script src="{% static "assets/demo/default/base/scripts.bundle.js" %}" type="text/javascript"></script>
+	<script src="{% static "js/scroll_to.js" %}" type="text/javascript"></script>
+	<script src="{% static "js/main.js" %}" type="text/javascript"></script>
+	<script src="{% static "js/l10n.js" %}" type="text/javascript"></script>
+	{% endcompress %}
+{% endblock base-js %}
+
+<!--end::Base Scripts -->
+<!--begin::Page Content Scripts -->
+{% block page-content-js %}
+{% endblock page-content-js %}
+<!--end::Page Content Scripts -->
+<!--begin::Page Snippets -->
+{% block page-js %}
+{% endblock page-js %}
+<!--end::Page Snippets -->
+{% if request.page.party %}
+	{% include "base/components/page_name_cookie.html" %}
+{% endif %}
+</body>
+<!-- end::Body -->
+</html>

@@ -1,0 +1,62 @@
+[
+  {
+    "model": "employees.jobhistory",
+    "pk": 1,
+    "fields": {
+      "job": 1,
+      "agency_employee": 1,
+      "start": "2017-01-01",
+      "end": null
+    }
+  },
+  {
+    "model": "employees.jobhistory",
+    "pk": 2,
+    "fields": {
+      "job": 2,
+      "agency_employee": 1,
+      "start": "2017-12-30",
+      "end": "2018-08-08"
+    }
+  },
+  {
+    "model": "employees.jobhistory",
+    "pk": 3,
+    "fields": {
+      "job": 2,
+      "agency_employee": 1,
+      "start": "2017-12-01",
+      "end": "2018-08-08"
+    }
+  },
+  {
+    "model": "employees.jobhistory",
+    "pk": 4,
+    "fields": {
+      "job": 2,
+      "agency_employee": 2,
+      "start": "2018-01-01",
+      "end": "2018-08-08"
+    }
+  },
+  {
+    "model": "employees.jobhistory",
+    "pk": 5,
+    "fields": {
+      "job": 2,
+      "agency_employee": 3,
+      "start": "2018-01-01",
+      "end": "2020-08-08"
+    }
+  },
+  {
+    "model": "employees.jobhistory",
+    "pk": 6,
+    "fields": {
+      "job": 1,
+      "agency_employee": 2,
+      "start": "2018-01-01",
+      "end": "2018-08-08"
+    }
+  }
+]

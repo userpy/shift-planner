@@ -1,0 +1,965 @@
+/*
+* Copyright © 2016 ООО «Верме»
+* 
+* Стили таблиц основные
+* Стили плагина таблиц со скролящимся тбоди
+* Стили компонента контролера даты приложения
+* Стили таблицы по шаблону виджета График сотрудников
+*/
+table {
+  border-collapse: collapse;
+}
+table .dark-border-bottom {
+  border-bottom: 1px solid #d9dde5;
+}
+table .dark-border-bottom-bold {
+  border-bottom: 2px solid #d9dde5;
+}
+table .dark-border-top {
+  border-top: 1px solid #d9dde5;
+}
+table .dark-border-right {
+  border-right: 1px solid #d9dde5;
+}
+table .dark-border-left {
+  border-left: 1px solid #d9dde5;
+}
+table tr.highlighted,
+table td.highlighted {
+  background: #ffffe2 !important;
+  transition: background 0.2s;
+}
+table.la-fixed {
+  table-layout: fixed;
+  width: 100%;
+}
+table .left-column {
+  width: 290px;
+}
+table.mini td {
+  height: 28px;
+  padding: 7px 5px;
+}
+.scroll-tbody,
+.scroll-tbody>thead,
+.scroll-tbody>tbody,
+.scroll-tbody>tfoot,
+.scroll-tbody>tbody>tr,
+.scroll-tbody>thead>tr,
+.scroll-tbody>tfoot>tr {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  position: relative;
+  float: left;
+}
+.scroll-tbody>tbody>tr>td,
+.scroll-tbody>thead>tr>td,
+.scroll-tbody>tfoot>tr>td {
+  display: block;
+  float: left;
+}
+.scroll-tbody>thead>tr:before,
+.scroll-tbody>tbody>tr:before,
+.scroll-tbody>tfoot>tr:before,
+.scroll-tbody>thead>tr:after,
+.scroll-tbody>tbody>tr:after,
+.scroll-tbody>tfoot>tr:after {
+  content: "";
+  display: table;
+}
+.scroll-tbody>thead>tr:after,
+.scroll-tbody>tbody>tr:after,
+.scroll-tbody>tfoot>tr:after {
+  clear: both;
+}
+.scroll-tbody {
+  zoom: 1;
+}
+.scroll-tbody > tbody {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  transform: translateZ(0);
+}
+.mobilable-table {
+  font-size: 0;
+  white-space: nowrap;
+  width: 100%;
+}
+.mobilable-table .mt-col-left {
+  width: 290px;
+}
+.mobilable-table .mt-col-left .mt-cell {
+  width: 100%;
+}
+.mobilable-table .mt-col-right {
+  width: calc(100% - 290px);
+  overflow-x: auto;
+}
+.mobilable-table .mt-col-left,
+.mobilable-table .mt-col-right {
+  display: inline-block;
+  vertical-align: top;
+}
+.mobilable-table .mt-cell {
+  display: inline-block;
+  font-size: 14px;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  height: inherit;
+}
+.mobile .mt-col-left {
+  width: 175px;
+}
+.mobile .mt-col-right {
+  width: calc(100% - 175px);
+}
+.big-table .actions-row {
+  max-height: 79px;
+  overflow: hidden;
+}
+.big-table .actions-row,
+.big-table .days-row,
+.big-table .open-shifts-head-row,
+.big-table .open-shifts-body-row,
+.big-table .left-column {
+  user-select: none;
+}
+.big-table thead,
+.big-table tfoot {
+  background: #f2f5f6;
+  font-size: 11px;
+}
+.big-table td {
+  border: none;
+  vertical-align: top;
+}
+.big-table.tbody-row-no-border-bott tbody tr {
+  border-bottom: none;
+  border-top: none;
+}
+.big-table .days-row {
+  background: #fff;
+  color: #3a3a3a;
+}
+.big-table .summs-row {
+  border-bottom: 1px solid #d9dde5;
+  height: 30px;
+}
+.big-table .scrollbar-row {
+  height: 18px;
+}
+.big-table thead tr:nth-last-child(1) {
+  border-bottom: 1px solid #d9dde5;
+}
+.big-table thead .left-column .custom-select-box {
+  border: none;
+  display: inline-block;
+  height: 36px;
+}
+.big-table thead .left-column .custom-select-box .csb-label:hover,
+.big-table thead .left-column .custom-select-box .csb-label:active {
+  background-color: #d6dae2;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.big-table thead .left-column .custom-select-box .csb-label:before {
+  top: 11px;
+}
+.big-table thead .left-column .custom-select-box .csb-label:after {
+  right: 7px;
+}
+.big-table thead .left-column .custom-select-box.filter-select {
+  border-right: 1px solid #d9dde5;
+  position: absolute;
+  left: 182px;
+  height: 36px;
+  border-radius: 0;
+}
+.big-table thead .left-column .custom-select-box.filter-select .csb-label:before {
+  top: 7px;
+}
+.big-table thead .left-column .custom-select-box.enabled {
+  background-color: #d6dae2;
+  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.2);
+}
+.big-table thead .left-column > div:after {
+  border-left: 0;
+}
+.big-table tbody td {
+  border-bottom-color: #d9dde5;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.big-table tbody tr {
+  border-top: none;
+  border-bottom: 1px solid #d9dde5;
+}
+.big-table tbody tr:hover {
+  background: #f5f7f7;
+}
+.big-table tr {
+  border-top: 1px solid #d9dde5;
+  overflow: hidden;
+}
+.big-table .left-column > div {
+  display: inline-block;
+  float: left;
+  padding: 6px 12px;
+  text-align: left;
+  position: relative;
+}
+.big-table .left-column > div:after {
+  border-left: 1px solid #d9dde5;
+  position: absolute;
+  top: 0;
+  bottom: -20;
+  left: 0;
+  content: "";
+}
+.big-table .t-cell {
+  position: relative;
+  padding: 0 !important;
+}
+.big-table .t-cell > div {
+  overflow: hidden;
+  height: 50%;
+  position: relative;
+}
+.big-table .t-cell > div:nth-child(1) {
+  width: 100%;
+}
+.big-table .t-cell > div:nth-child(2) {
+  border-right: 1px solid #d9dde5;
+  border-top: 1px solid #d9dde5;
+  width: 50%;
+  display: inline-block;
+}
+.big-table .t-cell > div:nth-child(3) {
+  border-top: 1px solid #d9dde5;
+  width: 50%;
+  display: inline-block;
+}
+.big-table .in-month-summ-state,
+.big-table .in-week-summ-state,
+.big-table .in-plan-summ-state,
+.big-table .in-act-summ-state {
+  display: none !important;
+}
+.big-table.show-month-summ .in-month-summ-state {
+  display: block !important;
+}
+.big-table.show-week-summ .in-week-summ-state {
+  display: block !important;
+}
+.big-table.show-act-summ .in-act-summ-state {
+  display: block !important;
+}
+.big-table.show-plan-summ .in-plan-summ-state {
+  display: block !important;
+}
+.big-table.empty tbody {
+  position: relative;
+  min-height: 100px;
+}
+.big-table.empty tbody:after {
+  position: absolute;
+  content: 'Нет данных для отображения';
+  width: 100%;
+  padding-top: 20px;
+  text-align: center;
+  font-style: italic;
+  color: #808080;
+  font-size: 18px;
+}
+.big-table .date-selector .item {
+  cursor: pointer;
+}
+.big-table tfoot .summs .item,
+.big-table tfoot .planed-label {
+  padding: 7px 15px 8px !important;
+  text-align: center;
+  font-weight: bold;
+}
+.big-table tfoot .summ {
+  width: 67px;
+  border-right: 1px solid #d9dde5;
+}
+.big-table tfoot .summs {
+  overflow: hidden;
+}
+.big-table tfoot .summs span {
+  display: inline-block;
+  padding-top: 5px;
+  text-align: center;
+  border-right: 1px solid #d9dde5;
+}
+.big-table tfoot .summs span:empty:after {
+  content: "00:00";
+}
+.big-table tfoot .planed-label {
+  display: block;
+  width: 100%;
+  border-right: 1px solid #d9dde5;
+}
+.big-and-simple {
+  font-size: 12px;
+}
+.big-and-simple td {
+  padding: 6px 12px;
+  border-right: 1px solid #d9dde5;
+}
+.big-and-simple td:nth-last-child(1) {
+  border-right: none;
+}
+.big-and-simple.empty tbody:after {
+  top: 20px;
+}
+.date-switcher.always-short .date-switcher-week-changer {
+  display: none;
+}
+.date-switcher.always-short .switch-to-next-interval {
+  margin-left: 0 !important;
+}
+.date-selector .year-switch,
+.date-selector .month-switch,
+.date-selector .week-switch {
+  overflow: auto;
+  line-height: 20px;
+  display: table;
+  width: 100%;
+  margin: 5px;
+}
+.small-popup.date-switcher-week .week {
+  border-radius: 2px;
+  white-space: normal;
+  line-height: 11px;
+  font-size: 12px;
+  padding: 5px;
+}
+.small-popup.date-switcher-week .week.selected {
+  background: rgba(214,218,226,0.5);
+}
+.zoomable-table .date-selector .day {
+  cursor: pointer;
+}
+.date-selector {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.date-selector .item {
+  display: table-cell;
+  text-align: center;
+  padding: 2 6px;
+  white-space: nowrap;
+  color: #196077;
+}
+.date-selector .item:hover {
+  background: #e8e8e8;
+}
+.date-selector .item.active {
+  background: #298eaf;
+  font-weight: bold;
+  color: #fff;
+}
+.date-selector.days-line .in-day-week-switch {
+  display: none;
+  position: absolute;
+  background: #90ee90;
+  height: inherit;
+  width: 20px;
+  top: 0;
+  margin: 0;
+  display: none;
+}
+.date-selector.days-line .in-day-week-switch.end {
+  right: 0;
+}
+.date-selector .day {
+  display: inline-block;
+  font-size: 10px;
+  position: relative;
+}
+.date-selector .day .date {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 5px 15px 6px;
+}
+.date-selector .day .date span {
+  font-weight: normal;
+}
+.date-selector .day .hours {
+  overflow: visible;
+}
+.date-selector .day .hours > div {
+  float: left;
+  text-align: right;
+  position: relative;
+  left: 0px;
+  font-size: 11px;
+  width: 4.1666%;
+  color: #e2e2e2;
+  visibility: hidden;
+}
+.date-selector .day .hours > div.every-4-hour {
+  visibility: visible;
+  border-style: dashed;
+}
+.date-selector .day .hours .day-date {
+  visibility: visible;
+  text-align: center;
+  color: #bfbfbf;
+}
+.date-selector .day .hours .day-date.highlighted {
+  background: #f5f7f7;
+}
+.date-selector .day:after {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 16px;
+  content: "";
+  border-left: 1px solid #d9dde5;
+}
+.date-selector .day .day-and-night {
+  display: none;
+}
+.date-selector .day .day-and-night >div {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+  color: #d3d3d3;
+}
+.date-selector .day .day-and-night >div:nth-child(1) {
+  position: relative;
+}
+.date-selector .day .day-and-night >div:nth-child(1):after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -2;
+  bottom: 0;
+  border-left: 1px solid #d9dde5;
+}
+.date-selector.no-hours .day:after,
+.date-selector.day-night .day:after {
+  bottom: -20px;
+}
+.date-selector.no-hours .hours,
+.date-selector.day-night .hours {
+  display: none;
+}
+.date-selector.day-night .day-and-night {
+  display: block;
+}
+.date-selector.clickable {
+  cursor: pointer;
+}
+.zoom-in .date-selector .hours > div {
+  visibility: visible;
+}
+.zoom-in .date-selector .hours .every-4-hour {
+  color: #555;
+}
+.zoom-in .date-selector.days-line .in-day-week-switch {
+  display: none;
+}
+.date-switcher .action-week-select {
+  width: 17px;
+  min-width: 17px;
+}
+.date-switcher .button,
+.date-switcher button {
+  margin-right: 8px;
+}
+.date-switcher button:nth-last-child(1) {
+  margin-left: 8px;
+  margin-right: 0;
+}
+.date-switcher-year-month .months-wrap {
+  position: relative;
+  width: 192px;
+  overflow: hidden;
+}
+.date-switcher-year-month .months-wrap .month {
+  width: 50%;
+  text-align: center;
+}
+.date-switcher-year-month hr {
+  width: 100%;
+  margin: 8px 0;
+  float: left;
+}
+.date-switcher-year-month .bottom-wrap .button.today {
+  float: right;
+}
+.day-borders-wrap {
+  height: inherit;
+  white-space: nowrap;
+  height: 100%;
+  font-size: 0;
+  position: relative;
+}
+.day-borders-wrap .one-day {
+  height: inherit;
+  display: inline-block;
+  border-right: 1px solid #d9dde5;
+  width: 14.2857%;
+  position: relative;
+}
+.day-borders-wrap .one-day .every-4-hour {
+  height: inherit;
+  display: none;
+  border-right: 1px solid #d9dde5;
+  width: calc(100% / 6);
+}
+.day-borders-wrap .one-day:nth-last-child(1) {
+  border-right: 0;
+}
+.day-borders-wrap .one-day.active {
+  border: 2px solid #109a5e;
+}
+.day-borders-wrap .one-day.outside {
+  background: #d9dde5;
+}
+.day-borders-wrap .one-day.borders-obscured {
+  border-right: 1px solid rgba(217,221,229,0.4);
+}
+.zoom-in .day-borders-wrap .every-4-hour {
+  display: inline-block;
+}
+.table-with-employees .border-right {
+  border-right: 1px solid #d9dde5;
+}
+.table-with-employees .left-column .summ {
+  border-right: 1px solid #d9dde5;
+  width: 67px;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 7px;
+}
+.table-with-employees .filter-select .csb-label:after {
+  right: 14px !important;
+}
+.table-with-employees .workflow {
+  position: relative;
+  overflow: hidden;
+}
+.table-with-employees thead .workflow {
+  border-bottom: 1px solid #d9dde5;
+}
+.table-with-employees .shifts-wrap {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: inherit;
+  overflow: hidden;
+}
+.table-with-employees .duty-wrap {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+.table-with-employees .duty-wrap .duty {
+  position: absolute;
+  transform: translateZ(0);
+  top: 0;
+  bottom: 0;
+  background: rgba(51,0,51,0.6);
+  pointer-events: all;
+  border-radius: 3px;
+}
+.table-with-employees .duty-wrap .duty .stretcher {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 6px;
+  cursor: col-resize;
+  background: #000;
+}
+.table-with-employees .duty-wrap .duty .stretcher:not(:hover) {
+  opacity: 0;
+}
+.table-with-employees .duty-wrap .duty .stretcher.left {
+  left: -3px;
+}
+.table-with-employees .duty-wrap .duty .stretcher.right {
+  right: -3px;
+}
+.table-with-employees thead .left-column {
+  padding-left: 0;
+}
+.table-with-employees thead .left-column > div {
+  text-align: left;
+  padding-left: 9px;
+}
+.table-with-employees thead .left-column .employee {
+  text-align: left;
+  width: 223px;
+  padding-left: 15px;
+  cursor: pointer;
+}
+.table-with-employees thead .left-column .employee.label {
+  width: 181px;
+  padding: 12px 10px;
+}
+.table-with-employees thead .left-column .employee .in-plan-summ-state,
+.table-with-employees thead .left-column .summ .in-plan-summ-state,
+.table-with-employees thead .left-column .employee .in-act-summ-state,
+.table-with-employees thead .left-column .summ .in-act-summ-state {
+  padding-top: 1px;
+  color: #e2e2e2;
+  text-align: center;
+  padding-top: 5px;
+}
+.table-with-employees thead .left-column .employee.two-lines,
+.table-with-employees thead .left-column .summ.two-lines {
+  padding: 6px 0 0 0 !important;
+}
+.table-with-employees thead .left-column .employee.action-button,
+.table-with-employees thead .left-column .summ.action-button {
+  cursor: pointer;
+  padding: 12px 10px;
+  border-right: 1px solid #d9dde5;
+}
+.table-with-employees tbody .shift-edit-cell {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  border-right: 1px solid #d9dde5;
+  height: 43px;
+}
+.table-with-employees tbody .shift-edit-cell .fake-borders {
+  width: 100%;
+  height: 100%;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+.table-with-employees tbody .shift-edit-cell .controls-wrap {
+  position: absolute;
+  width: 20px;
+  cursor: pointer;
+  right: 4px;
+  top: 4px;
+  bottom: 4px;
+  display: none;
+  color: #fff;
+}
+.table-with-employees tbody .shift-edit-cell .controls-wrap .control {
+  background: #26a16d;
+  border-radius: 2px;
+  position: relative;
+}
+.table-with-employees tbody .shift-edit-cell .controls-wrap .control:hover {
+  background: #26a16d;
+}
+.table-with-employees tbody .shift-edit-cell .controls-wrap .control:before {
+  top: 2px;
+  left: 5px;
+  position: absolute;
+}
+.table-with-employees tbody .shift-edit-cell .controls-wrap > div {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+.table-with-employees tbody .shift-edit-cell .controls-wrap > div:nth-child(n + 2) {
+  margin-top: 2px;
+  display: none;
+}
+.table-with-employees tbody .shift-edit-cell .icons-wrap {
+  position: absolute;
+  bottom: 5px;
+  right: 29px;
+}
+.table-with-employees tbody .shift-edit-cell .icons-wrap > div {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 12px;
+}
+.table-with-employees tbody .shift-edit-cell .icons-wrap .lock-icons {
+  display: none;
+}
+.table-with-employees tbody .shift-edit-cell .icons-wrap .duty-icons {
+  display: none;
+}
+.table-with-employees tbody .shift-edit-cell .icons-wrap .viol-icons {
+  font-size: 10px;
+  position: relative;
+  top: -1px;
+}
+.table-with-employees tbody .shift-edit-cell .hr-docs-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  padding-top: 14px;
+  padding-left: calc(50% - 10px);
+}
+.table-with-employees tbody .shift-edit-cell.nothing-to-view .controls-wrap {
+  visibility: hidden;
+}
+.table-with-employees tbody .shift-edit-cell.locked .ie-click-fix {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.table-with-employees tbody .shift-edit-cell.locked .lock-icons {
+  display: inline-block;
+}
+.table-with-employees tbody .shift-edit-cell.corrected textarea {
+  background: #ffff8f;
+}
+.table-with-employees tbody .shift-edit-cell.disabled {
+  background: #e1e4ea;
+}
+.table-with-employees tbody .shift-edit-cell.has-duties .duty-icons {
+  display: inline-block;
+  font-size: 10px;
+}
+.table-with-employees tbody .shift-edit-cell.two-shifts .controls-wrap > div {
+  height: 49%;
+}
+.table-with-employees tbody .shift-edit-cell.two-shifts .controls-wrap > div:nth-child(n + 2) {
+  display: block;
+}
+.table-with-employees tbody .shift-edit-cell:hover .controls-wrap {
+  display: block;
+  z-index: 3;
+}
+.table-with-employees tbody .shift-edit-cell:hover .fake-borders {
+  border: 2px solid #26a16d;
+}
+.table-with-employees tbody .shift-edit-cell textarea {
+  height: inherit;
+  padding: 8px 13px;
+  resize: none;
+  font-size: 12px;
+  overflow: hidden;
+  background: transparent;
+  width: 100%;
+  border-top: 0;
+  border-bottom: 0;
+  border-right: 0;
+  border-color: #d3d3d3;
+  border: 2px solid transparent;
+}
+.table-with-employees tbody .shift-edit-cell textarea.bordered {
+  position: relative;
+  z-index: 2;
+  outline: none;
+  height: 43px;
+  border-radius: 2px;
+}
+.table-with-employees tbody .shift-edit-cell.zoom-month:hover .controls-wrap {
+  right: -16px;
+}
+.table-with-employees tbody .shift-edit-cell.zoom-month.locked {
+  background: #f5f5f5;
+}
+.table-with-employees tbody .shift-edit-cell.zoom-month textarea {
+  padding: 0;
+  font-size: 10px;
+}
+.table-with-employees tbody .shift-edit-cell.zoom-month .icons-wrap {
+  bottom: 2px;
+  right: 6px;
+}
+.table-with-employees tbody .shift-edit-cell.hr-doc-inside textarea {
+  padding-top: 14px;
+  padding-left: calc(50% - 10px);
+}
+.table-with-employees tbody .left-column > div {
+  display: inline-block;
+  vertical-align: top;
+  padding: 12px 5px;
+  height: 100%;
+}
+.table-with-employees tbody .left-column .avatar {
+  display: inline-block;
+  width: 51px;
+  height: 43px;
+  padding: 8px;
+  padding-left: 15px;
+}
+.table-with-employees tbody .left-column .avatar div {
+  width: 27px;
+  height: 27px;
+  background: #ffc0cb;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 3px;
+}
+.table-with-employees tbody .left-column .avatar img {
+  width: 100%;
+  border: 1px solid;
+  border-radius: 5px;
+}
+.table-with-employees tbody .left-column .fio {
+  width: 172px;
+  padding-top: 7px;
+  padding-bottom: 0;
+  font-weight: bold;
+  padding-left: 0;
+}
+.table-with-employees tbody .left-column .fio .name,
+.table-with-employees tbody .left-column .fio .jobs {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.table-with-employees tbody .left-column .fio .jobs {
+  font-size: 12px;
+  font-weight: normal;
+}
+.table-with-employees tbody .left-column .fio:after {
+  display: none;
+}
+.table-with-employees tbody .row-dep-separator {
+  height: 25px;
+}
+.table-with-employees tbody .row-dep-separator > td {
+  height: 25px;
+  padding-top: 6px;
+  padding-left: 5px;
+  font-size: 11px;
+  color: #808080;
+}
+.table-with-employees tbody .summs-row {
+  height: 25px;
+}
+.table-with-employees tbody .summs-row > td,
+.table-with-employees tbody .summs-row .left-column > div {
+  height: 25px;
+}
+.table-with-employees tbody .summs-row .summ {
+  padding-top: 3px;
+}
+.table-with-employees tbody .summs-row .planed-label {
+  padding: 6px 12px !important;
+  font-weight: bold;
+  width: 223px;
+  font-size: 11px;
+}
+.table-with-employees tbody .summs-row .item {
+  background: #fff6c6 !important;
+  padding: 5px 15px 8px !important;
+  border-right: 1px solid #d9dde5;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  height: 100%;
+  font-size: 11px;
+  vertical-align: top;
+}
+.table-with-employees tfoot .planed-label {
+  width: 224px;
+  padding-left: 15px;
+  text-align: left;
+}
+.table-with-employees tfoot .planed-label:after {
+  display: none;
+}
+.table-with-employees tfoot .summ {
+  text-align: center;
+  font-weight: bold;
+  width: 66px !important;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
+}
+.table-with-employees tfoot .summ span:empty:before {
+  content: '00:00';
+}
+.table-with-employees tfoot .summ:after {
+  display: none;
+}
+.lpair-table td {
+  padding: 6px 10px 6px 0;
+}
+.lpair-table td:nth-child(1) {
+  font-weight: bold;
+}
+.light-table caption {
+  text-align: left;
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.light-table .mt-head-row .mt-cell,
+.light-table thead {
+  font-size: 12px;
+  color: #808080;
+}
+.light-table .mt-cell,
+.light-table td {
+  padding: 8px 20px 10px 0;
+  border-bottom: 1px solid #d9dde5;
+}
+.light-table .mt-cell.level-1,
+.light-table td.level-1 {
+  padding-left: 20px;
+}
+.light-table .mt-cell.level-2,
+.light-table td.level-2 {
+  padding-left: 40px;
+}
+.light-table .mt-cell.level-3,
+.light-table td.level-3 {
+  padding-left: 60px;
+}
+.light-table .mt-cell.level-4,
+.light-table td.level-4 {
+  padding-left: 80px;
+}
+.light-table .mt-cell.level-5,
+.light-table td.level-5 {
+  padding-left: 100px;
+}
+.light-table-thin .mt-head-row.mt-col-left .mt-cell,
+.light-table-thin td {
+  padding: 11px 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.light-table-thin .mt-head-row.mt-col-left .mt-cell:nth-child(1),
+.light-table-thin td:nth-child(1) {
+  width: 290px;
+}
+.light-table-thin .mt-cell,
+.light-table-thin tbody td {
+  padding: 5px 12px;
+  font-size: 13px;
+}
+.light-table-thin thead {
+  white-space: nowrap;
+}
+.light-table-thin .mt-col-left .mt-head-row .mt-cell,
+.light-table-thin thead td:nth-child(1) {
+  font-weight: bold;
+  color: #000;
+}
+.first-row-no-border-top tr:nth-child(1) {
+  border-top: none;
+}
+.first-row-no-border-top tr:nth-child(1) td {
+  border-top: none !important;
+}
+

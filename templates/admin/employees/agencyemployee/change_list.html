@@ -1,0 +1,28 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls admin_static admin_list %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <style>
+        form[name=employees-import]{
+            margin-top: -3px;
+        }
+    </style>
+{% endblock %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+    <li>
+        {% url cl.opts|admin_urlname:'add' as add_url %}
+    </li>
+    {% if not is_popup %}
+        <li>
+            <form method="POST" name='employees-import' enctype="multipart/form-data" action="{% url 'admin-employees-import' %}">
+                {% csrf_token %}
+                <label for="emplImportFile">Импортировать XLS file</label>
+                <input id="id_xls_file" name="xls_file" type="file" required />
+                <button type="submit">Импорт</button>
+            </form>
+        </li>
+    {% endif %}
+{% endblock %}

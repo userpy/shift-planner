@@ -1,0 +1,7 @@
+@media all and (-ms-high-contrast:none) and (min-width: 1025px)
+{
+	.m-aside-left--minimize .m-aside-menu .m-menu__nav>.m-menu__item>.m-menu__link .m-menu__link-title .m-badge{
+		left: -25px;
+	}
+/* *::-ms-backdrop, .foo { color: red } IE11 */
+}

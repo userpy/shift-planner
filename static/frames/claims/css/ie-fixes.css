@@ -1,0 +1,10 @@
+@media all and (-ms-high-contrast:none)
+{
+	body{
+		overflow-y: scroll
+	}
+	input[type="file"]{
+		padding: 0
+	}
+}
+

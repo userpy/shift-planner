@@ -1,0 +1,111 @@
+<!--
+Copyright 2018 ООО «Верме»
+Страница планирования смен сотрудников
+-->
+
+{% extends "base/page_content_w_search.html" %}
+{% load static %}
+{% load compress %}
+{% block page-js %}
+<script>
+	var csrf_token = '{{ csrf_token }}'
+	var request_page_party = '{{ request.page.party }}'
+	var page_code = '{{ request.base_page.code }}'
+</script>
+{% compress js %}
+<script src="{% static "js/datepicker_language_ru.js" %}" type="text/javascript"></script>
+
+<script>Model = {}</script>
+
+<script src="{% static "js/plugins/throttle_debounce.js" %}"></script>
+
+<script src="{% static "js/plugins/model/timezone.js" %}"></script>
+<script>Model.tz.currentServerUTCOffset = +'{{ current_utc_offset }}' || -3* Date.hour</script>
+<script src="{% static "js/pages/common/date_range_picker_l10n.js" %}" type="text/javascript"></script>
+
+
+
+<script src="{% static "js/outsource_requests.js" %}" type="text/javascript"></script>
+{% endcompress %}
+
+{% include "base/components/shift_assign.html" %}
+
+{% endblock page-js %}
+
+{% block page-content-search %}
+
+{% endblock page-content-search %}
+
+{% block page-content-body %}
+<!--begin: Datatable -->
+
+<script>
+var sa_settings = (function(){
+	var settings = {}
+	switch(request_page_party){
+		case 'agency':
+			settings = {
+				isAllowedTo:{
+					changeTime: false,
+					changeEmployee: 1,
+					copyHere: false,
+					copyToFuture: false,
+					remove: false,
+					checkViolations: false,
+					createShift: false,
+				},
+				filters: {
+					organization: {placeholder: 'Фильтр по магазину не задан'},
+					area: {placeholder: 'Фильтр по функции не задан'},
+				},
+				apiKey: 'outsource',
+				emptyTablePlaceholder: 'Для выбранного агентства нет доступных смен',
+				leftColName: 'Смена'
+			}
+		default:
+			settings = {
+				isAllowedTo:{
+					changeTime: 1,
+					changeEmployee: 1,
+					copyHere: 1,
+					copyToFuture: 1,
+					remove: 1,
+					checkViolations: 1,
+					createShift: 1,
+				},
+				filters: {
+					organization: {placeholder: 'Фильтр по магазину не задан'},
+					area: {placeholder: 'Фильтр по зоне магазина не задан'},
+				},
+				apiKey: 'promo',
+				emptyTablePlaceholder: 'Для выбранного агентства нет доступных квот',
+				leftColName: 'Квота'
+			}
+	}
+	if('{{ request.base_page.code }}' == 'client_schedule'){
+			settings.isAllowedTo.changeTime = 0
+			settings.isAllowedTo.changeEmployee = 0
+			settings.isAllowedTo.copyHere = 0
+			settings.isAllowedTo.copyToFuture = 0
+			settings.isAllowedTo.createShift = 0
+			settings.isAllowedTo.remove = 0
+			
+			settings.filters.organization = {placeholder: 'Фильтр по агентству не задан'}
+
+			settings.apiKey = 'client'
+			settings.emptyTablePlaceholder = 'Для выбранного магазина нет доступных смен'
+			settings.enableModeSwitch = 1
+			settings.defaultWorkMode = 'promo'
+			settings.reverseIds = true
+		}
+		return settings
+})()
+
+</script>
+<div class="table-widget-wrap">
+	<div class="shifs_assign_nest"></div>
+</div>
+
+
+<!--end: Datatable -->
+{% endblock page-content-body %}

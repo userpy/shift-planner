@@ -1,0 +1,99 @@
+.two-cols-widget {
+  background: #fff;
+  white-space: nowrap;
+  min-height: 100%;
+  overflow: hidden;
+  font-size: 0;
+}
+.two-cols-widget > * {
+  font-size: 14px;
+}
+.two-cols-widget .col-left,
+.two-cols-widget .col-right {
+  display: inline-block;
+  white-space: normal;
+  vertical-align: top;
+  position: relative;
+}
+.two-cols-widget .col-left {
+  width: 290px;
+  height: 100%;
+}
+.two-cols-widget .col-left:after {
+  position: absolute;
+  content: " ";
+  right: 0;
+  top: 0;
+  height: 10000px;
+  border-right: 1px solid #dbdee6;
+}
+.two-cols-widget .col-inner {
+  padding-top: 16px;
+  padding-left: 35px;
+}
+.two-cols-widget h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.two-cols-widget h4 {
+  padding: 8px 0;
+  font-size: 13px;
+  line-height: 13px;
+  margin-top: 12px;
+  font-weight: bold;
+}
+.two-cols-widget .tab {
+  padding: 12px 11px;
+  border-bottom: 1px solid #dbdee6;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+}
+.two-cols-widget .tab.selected {
+  background: #ffffe2;
+}
+.two-cols-widget .tab.child-tab {
+  font-weight: normal;
+  padding-left: 23px;
+}
+.two-cols-widget .tab .left-icon {
+  top: 15px;
+  position: absolute;
+  right: 12px;
+}
+.two-cols-widget .block {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 60px;
+}
+.two-cols-widget .negative {
+  color: #e52a6c;
+}
+.two-cols-widget .checked {
+  color: #109a5e;
+}
+.two-cols-widget .disabled,
+.two-cols-widget .disabled > * {
+  color: #d3d3d3;
+  pointer-events: none;
+}
+.two-cols-widget .inline-table {
+  display: inline-table;
+}
+.top-widget .col-left {
+  height: calc(100% - 80px);
+}
+.two-cols-widget .back-butt{
+	color: grey;
+  cursor: pointer;
+  border-bottom: 1px solid #dbdee6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 8px;
+  width: 100%;
+}
+.two-cols-widget .back-butt i{
+  margin-right: 8px;
+  margin-left: 8px
+}

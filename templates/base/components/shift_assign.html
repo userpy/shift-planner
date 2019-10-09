@@ -1,0 +1,356 @@
+{% load static %}
+{% load compress %}
+
+
+<script type="text/x-template" id="shifs_assign_template">
+	<div class="table-widget ver-flex-parent shift-assign-table" :class="isLoading ? 'loading' : ''"ref="widget-body" @mousedown="onMousedown">
+		<div class="head-butts" :style="{left: headButtsLeftCss, width: headButtsWidthCss}" @mousedown="onMousedownFix($event)">
+			<template v-if="!isCopyInPresent">
+				<button type="button" class="btn btn-secondary" @click="callExport" data-toggle="m-tooltip" data-placement="bottom" title="" data-original-title="Выгрузить в Exсel"><i class="fa fa-cloud-download-alt"></i></button>
+			</template>
+			<template v-if="isCopyInPresent">
+				<button type="button" class="btn btn-success" @click="applyCopyToPresent" :disabled="!higlightedDayCodesCopyToPresent.length">ОК</button>
+				<button type="button" class="btn btn-danger" @click="exitCopyToPresent"><i class="fa fa-times"></i></button>
+			</template>
+			<div style="float: right; width: 150px" v-if="settings.enableModeSwitch">
+				<vue-jq-select 
+					:options="optsForModeSelect"
+					:selected-options="selectedModeOpt"
+					:on-change="onModeSelectChange"
+				></vue-jq-select>
+			</div>
+		</div>
+		<div class="tw-head ver-flex-child">
+			<div class="tw-row hor-flex-parent table-header-row">
+				<div class="tw-col-1 hor-flex-child">
+					<div class="tw-col-1 hor-flex-child">
+						<div class="empl-block hor-flex-parent">
+							<div class="icon hor-flex-child">
+								<i class="fa"></i>
+							</div>
+							<div class="name hor-flex-child-long">
+								<span class="name-head" v-text="settings.leftColName"></span>
+							</div>
+							<div class="hor-flex-child">
+								<div class="btn btn-light sa-filters-expand-btn" @click="isFiltersDDVisible = true"> <i class="fa fa-caret-down"></i> </div>
+							</div>
+							<div class="summ hor-flex-child">
+								<div class="top-summ" v-text="zoomMode == 'week' ? 'Неделя, ∑' : 'Месяц, ∑'"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tw-col-2 hor-flex-child-long" :style="{'padding-right': scrollFixPadding}">
+					<vue-days-line
+						:start_dtime="start_dtime"
+						:zoom-mode="zoomMode"
+						:on-zoom-select-change="onZoomSelectChange"
+						:on-day-click="onDayInDaysLineClick"
+						:selected-dtimes="hoveredDayLineDtimes"
+					></vue-days-line>
+				</div>
+			</div>
+		</div>
+		<div class="tw-body-bg-day-cols" 
+			v-if="blocks.length && !isLoading"
+			:style="{height: bodyHeightCss, top: tableHeaderHeightCss}">
+			<div class="tw-row hor-flex-parent">
+				<div class="tw-col-1 hor-flex-child"></div>
+				<div class="tw-col-2 hor-flex-child-long" :style="{'padding-right': scrollFixPadding}">
+					<div class="tw-u-row hor-flex-parent" v-if="blocks[0].rows.length">
+						<div 
+							class="week hor-flex-child" 
+							v-for="(week, week_index) in blocks[0].rows[0].urows[0].weeks" 
+							:key="'head**'+ week_index"
+							:style="{
+								width: calcWeekWidth(week)
+						}">
+							<div class="day" 
+								v-for="day in week" 
+								:class="{
+									'ver-flex-parent': zoomMode != 'month',
+									'hor-flex-parent': zoomMode == 'month',
+								}" 
+								:style="{
+									'width': day.cssWidth,
+							}">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tw-body ver-flex-child-long" 
+				ref="table_body" @scroll="onScroll" 
+				:class="{'selecting-via-mouse': isSelectingViaMouse}"
+				:style="{height: bodyHeightCss, maxHeight: bodyHeightCss}"
+			>
+			<div :style="{height: bodyPaddingTopCSS}"></div>
+			<div v-if="!blocks.length && !isLoading || (blocks.length && !blocks[0].rows.length)" class="empty-table-placeholder" v-text="emptyTablePlaceholderErrored || settings.emptyTablePlaceholder"></div>
+			<div v-if="!blocks.length && isLoading" class="empty-table-placeholder">
+				<i class="fas fa-spinner fa-spin m--font-success" style="font-size: 24px"></i>
+			</div>
+			<div v-for="block in blocks" :key="block.id" v-if="!block.isHiddenByScrolling"><!--для блока-->
+				<div class="tw-row hor-flex-parent row-separator" v-if="blocks.length > 1"> <!--заголовок блока-->
+					<div class="tw-col-1 hor-flex-child"></div>
+					<div class="tw-col-2 hor-flex-child-long" v-text="block.name"></div>
+				</div>
+				<div class="tw-row hor-flex-parent" 
+					v-for="row in block.rows" 
+					:key="row.code"
+					v-if="!row.isHiddenByScrolling"
+					> <!--для строки внутри блока-->
+					<div class="tw-col-1 hor-flex-child">
+						<div class="empl-block hor-flex-parent" @click="onEmplRowClick(row)" :class="{'selected': ~selectedURowCodes.indexOf(row.urows[0].code)}">
+							<div class="icon hor-flex-child">
+								<i class="fa" :class="row.area.icon ? ('fa-'+ row.area.icon) : 'fa-store'" :style="{color: row.area.color || 'black'}"></i>
+							</div>
+							<div class="name hor-flex-child-long">
+								<span class="name-head" v-text="row.organization.name"></span>
+								<br>
+								<span class="name-captions">
+									<!-- <span class="name-caption" v-for="c in row.captions" v-text="c.label" :style="{color: c.color}"></span> -->
+									<span class="name-caption" v-text="row.area.name" :style="{color: row.area.color || 'black'}"></span>
+								</span>
+							</div>
+							<div class="summ hor-flex-child">
+								<div class="top-summ" :text-content.prop="row.shiftsDurationSumm | timeDeltaHM"></div>
+							</div>
+						</div>
+						<!-- пустые блоки для подсветки во время выделения -->
+						<div class="empl-block hor-flex-parent" 
+							v-for="(urow, urow_index) in row.urows" 
+							v-if="urow_index > 0"
+							:class="{'selected': ~selectedURowCodes.indexOf(urow.code)}">
+							<div class="icon hor-flex-child">
+							</div>
+							<div class="name hor-flex-child-long">
+								<span class="name-head"></span>
+								<br>
+								<span class="name-captions">
+									<span class="name-caption"></span>
+								</span>
+							</div>
+							<div class="summ hor-flex-child">
+								<div class="top-summ"></div>
+							</div>
+						</div>
+					</div>
+					<div class="tw-col-2 hor-flex-child-long">
+						<div class="tw-u-row hor-flex-parent" 
+							v-for="(urow, urow_index) in row.urows" 
+							style="width: 100%"
+							:key="urow.code"
+							:class="{
+								'first-urow': urow_index == 0,
+								'mid-urow': urow_index != 0 &&  urow_index != (row.urows.length-1),
+								'last-urow': urow_index == (row.urows.length-1),
+							}"
+							> <!--для подстроки внутри строки -->
+							<sa-avail-block
+								v-for="avail in urow.avails"
+								:avail="avail"
+								:key="'avail**'+urow.code+'**'+avail.id"
+								:comp_start_dtime="start_dtime"
+								:comp_end_dtime="end_dtime"
+								@click.native="onAvailClick(avail, $event)"
+							></sa-avail-block>
+							<div 
+								class="week hor-flex-child" 
+								v-for="(week, week_index) in urow.weeks" 
+								:key="urow.code +'**'+ week_index"
+								:style="{
+									width: calcWeekWidth(week),
+									pointerEvents: isAvailSelectionEnabled ? 'none' : ''
+								}"
+								>
+								<div class="day" 
+									v-for="day in week" 
+									:key="urow.code +'**'+ day.code"
+									:data-urow-code="urow.code"
+									:data-day-code="day.code"
+									:class="{
+										'hor-flex-parent': zoomMode != 'month',
+										'ver-flex-parent': zoomMode == 'month',
+									}" 
+									:style="{
+										'width': day.cssWidth,
+									}"
+									> <!--для дня внутри подстроки -->
+									<div class="day-back-wrap"
+										:class="{ 'read-only': day.isReadonly, 
+										'ver-flex-parent': zoomMode == 'month', 
+										'hor-flex-parent': zoomMode != 'month', 
+										'selected': isDaySelectedToEdit(day),
+										'hovered-by-zone': ~higlightedDayCodes.indexOf(day.code),
+										'hovered-by-zone-to-copy': ~higlightedDayCodesCopyToPresent.indexOf(day.code)
+									}"
+										>
+										<div class="day-zone-background hor-flex-child-long" 
+											v-for="(zone, count) in ['morningStart', 'lightDayStart', 'nightStart']"
+											:key="urow.code +'**'+ day.code +'**'+ count"
+											:class="'item-' + count" 
+											@click="!day.isReadonly && onDayZoneClick({start_dtime: day.start_dtime, 
+											zone: zone, area_id: row.area.id, 
+											organization_id: row.organization.id, 
+											agency_id: block.id, code: day.code,
+											urow_index: urow_index}, $event)"
+										></div>
+									</div>
+									<sa-shift-block 
+										:style="{'pointer-events': isCopyInPresent ? 'none' : ''}"
+										v-for="shift in day.shifts"
+										:day-shifts="day.shifts"
+										:shift="shift"
+										:month-day-width="monthDayWidth"
+										:on-click="onShiftClick"
+										:key="shift.id"
+										:row="row"
+										:zoom-mode="zoomMode"
+										:comp-wrap="compWrap"
+									></sa-shift-block>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div :style="{height: bodyPaddingBottomCSS}"></div>
+		</div>
+		<div class="tw-footer ver-flex-child-long">
+			<div class="tw-row hor-flex-parent footer-summ-row">
+				<div class="tw-col-1 hor-flex-child">
+					<div class="tw-col-1 hor-flex-child">
+						<div class="empl-block hor-flex-parent">
+							<div class="icon hor-flex-child">
+								<i class="fa"></i>
+							</div>
+							<div class="name hor-flex-child-long">
+								<span class="name-head"></span>
+							</div>
+							<div class="summ hor-flex-child">
+								<div class="top-summ" :text-content.prop="totalDaysSumm | timeDeltaHM"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tw-col-2 hor-flex-child-long hor-flex-parent" :style="{'padding-right': scrollFixPadding}">
+					<div class="total-day-summ hor-flex-child-long"
+						:style="{'width': summ.cssWidth}"
+						v-for="summ in daySumms">
+						<span :text-content.prop="summ.duration | timeDeltaHM"></span> /
+						<span :text-content.prop="summ.count"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<sa-edit-shift v-if="editShiftData" :key="editShiftData.shift.id"
+			:shift-data="editShiftData"
+			:all-shifts="rawShiftsData"
+			:on-edit-start="onEditStart"
+			:on-edit-success="onEditSuccess"
+			:on-delete-success="onDeleteSuccess"
+			:on-edit-error="onEditError"
+			:on-exit-shift-selection="onExitShiftSelection"
+			:comp-wrap="compWrap"
+			:settings="settings"
+			@mousedown.native="onMousedownFix"
+		></sa-edit-shift>
+		<sa-edit-avail v-if="editAvailData" :key="editAvailData.avail.id"
+			:avail-data="editAvailData"
+			:all-shifts="rawShiftsData"
+			:on-edit-start="onEditStart"
+			:on-edit-avail-success="onEditAvailSuccess"
+			:on-delete-avail-success="onDeleteSuccess"
+			:on-edit-error="onEditError"
+			:on-exit-selection="onExitShiftSelection"
+			:comp-wrap="compWrap"
+			:settings="settings"
+			:workflowwidth="workflowLineWidthCSS"
+			@mousedown.native="onMousedownFix"
+		></sa-edit-avail>
+		<sa-copy-to-future v-if="isCopyToFuture"
+			:shifts="higlightedShifts"
+			:get-selected-week-start="getSelectedWeekStart"
+			:widget-body="widgetBody"
+			:on-cancel="exitCopyToFuture"
+			:on-ok="applyCopyToFuture"
+			@mousedown.native="onMousedownFix"
+		></sa-copy-to-future>
+		<sa-filters-dd v-if="isFiltersDDVisible"
+			:raw-rows-data="rawRowsData"
+			:on-org-filter-change="onOrgFilterChange"
+			:on-area-filter-change="onAreaFilterChange"
+			:org-filter-values="orgFilterValues"
+			:area-filter-values="areaFilterValues"
+			:on-cancel="onExitFilters"
+			:settings="settings"
+			@mousedown.native="onMousedownFix"
+		></sa-filters-dd>
+		<sa-mass-action-dd v-if="!isSelectingViaMouse && (higlightedShifts.length || isAvailSelectionMode) && !isCopyInPresent"
+			:shifts="higlightedShifts"
+			:on-copy-to-future-start="startCopyToFuture"
+			:on-copy-to-present-start="startCopyToPresent"
+			:short-cut-start-copy-to-present="shortCutStartCopyToPresentBt"
+			:on-edit-start="onEditStart"
+			:on-edit-success="onEditSuccess"
+			:on-delete-success="onDeleteSuccess"
+			:on-edit-error="onEditError"
+			:on-exit-shift-selection="onExitShiftSelection"
+			:higlighted-day-codes="higlightedDayCodes"
+			:widget-body="widgetBody"
+			:comp-wrap="compWrap"
+			:is-dtime-readonly="isDtimeReadonly"
+			:settings="settings"
+			:curr-work-mode="currWorkMode"
+			:create-avail="createAvail"
+			:remove-avails="removeAvails"
+			:is-any-avail-in-zone="isAnyAvailInZone"
+			:body-scroll-pos="bodyScrollPos"
+			@mousedown.native="onMousedownFix"
+		></sa-mass-action-dd>
+		<div class="selection-zone" 
+			v-if="isSelectingViaMouse && selectionZoneCss" 
+			v-show="isSelectionBoxVisible"
+			:style="{top: selectionZoneCss.top, left: selectionZoneCss.left, width: selectionZoneCss.width, height: selectionZoneCss.height}"
+		></div>
+	</div>
+</script>
+<script>
+	page_main_widget = { components: [] }
+</script>
+{% compress js %}
+<script src="{% static "js/plugins/model/objects/shift.js" %}"></script>
+<script src="{% static "js/plugins/model/objects/availability.js" %}"></script>
+
+<script src="{% static "js/pages/sa_mixins/copy_to_future.js" %}"></script>
+<script src="{% static "js/pages/sa_mixins/copy_to_present.js" %}"></script>
+<script src="{% static "js/pages/sa_mixins/select_interval.js" %}"></script>
+<script src="{% static "js/pages/sa_mixins/sa_rows_in_viewport.js" %}"></script>
+<script src="{% static "js/pages/sa_mixins/sa_shift_edit.js" %}"></script>
+<script src="{% static "js/pages/sa_mixins/sa_avail_edit.js" %}"></script>
+
+<script src="{% static "js/pages/shifts_assign/_shifts_assign.js" %}"></script>
+<script src="{% static "js/pages/shifts_assign/event_handlers.js" %}"></script>
+<script src="{% static "js/pages/shifts_assign/generation.js" %}"></script>
+<script src="{% static "js/pages/shifts_assign/ajaxes.js" %}"></script>
+<script src="{% static "js/pages/shifts_assign/components/empl_select.js" %}"></script>
+<script src="{% static "js/pages/shifts_assign/components/empl_select_dd.js" %}"></script>
+<script src="{% static "js/pages/shifts_assign/components/edit_shifts.js" %}"></script>
+<script src="{% static "js/pages/shifts_assign/components/edit_avails.js" %}"></script>
+<script src="{% static "js/pages/shifts_assign/components/shift_block.js" %}"></script>
+<script src="{% static "js/pages/shifts_assign/components/avail_block.js" %}"></script>
+<script src="{% static "js/pages/shifts_assign/components/filters_dd.js" %}"></script>
+<script src="{% static "js/pages/shifts_assign/components/mass_actions_dd.js" %}"></script>
+<script src="{% static "js/pages/shifts_assign/components/copy_to_future.js" %}"></script>
+{% endcompress %}
+{% compress css %}
+<link rel="stylesheet" href="{% static "css/common/table_widget.css" %}" type="text/css" />
+<link rel="stylesheet" href="{% static "css/common/input_dropdowns.css" %}" type="text/css" />
+<link rel="stylesheet" href="{% static "css/common/time_input_with_dd.css" %}" type="text/css" />
+
+<link rel="stylesheet" href="{% static "frames/claims/css/custom-select-box.css" %}" type="text/css" />
+<link rel="stylesheet" href="{% static "frames/claims/css/loading-screen.css" %}" type="text/css" />
+
+<link rel="stylesheet" href="{% static "css/pages/shifts_assign/shifts_assign.css" %}" type="text/css" />
+{% endcompress %}

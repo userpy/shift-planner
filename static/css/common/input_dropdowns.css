@@ -1,0 +1,93 @@
+.small-dropdown {
+	position: absolute;
+	background: #fff;
+	padding: 15px;
+	box-shadow: 0px 0px 10px 0px #d6dae3;
+	border: 1px solid #d6dae3;
+	border-radius: 2px;
+	z-index: 2;
+}
+
+.small-dropdown.button-date-input .top-wrap .month-inc {
+	float: right;
+}
+
+.small-dropdown.button-date-input .top-wrap .month-value {
+	position: absolute;
+	left: 32px;
+	right: 32px;
+	text-align: center;
+	padding-top: 9px;
+}
+
+.small-dropdown.button-date-input .middle-wrap {
+	padding: 10px 0;
+}
+
+.small-dropdown.button-date-input .middle-wrap table {
+	table-layout: fixed;
+	width: 154px;
+}
+
+.small-dropdown.button-date-input .middle-wrap table td {
+	width: 22px;
+	height: 22px;
+}
+
+.small-dropdown.button-date-input .bottom-wrap .year-select {
+	min-width: 77px;
+	margin-right: 10px;
+}
+
+.small-dropdown.button-time-input > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.small-dropdown.button-time-input .button {
+	height: 18px;
+	padding: 0;
+	cursor: pointer
+}
+
+.small-dropdown.button-time-input .value {
+	display: inline-block;
+	height: 35px;
+	border: 1px solid #e6e8ed;
+	border-radius: 2px;
+}
+
+.small-dropdown.button-time-input .separator {
+	padding: 5px;
+}
+
+.small-dropdown.button-date-input .top-wrap .month-inc,
+.small-dropdown.button-date-input .top-wrap .month-dec {
+	width: 23px;
+	text-align: center;
+}
+
+.small-dropdown.button-time-input .hours-wrap,
+.small-dropdown.button-time-input .minutes-wrap {
+	position: relative;
+	width: 42px;
+}
+
+.small-dropdown.button-time-input .button,
+.small-dropdown.button-time-input .value {
+	width: 100%;
+}
+
+.small-dropdown.button-time-input .value,
+.small-dropdown.button-time-input .separator {
+	margin: 3px 0px;
+	font-size: 180%;
+	line-height: 35px;
+	text-align: center;
+}
+
+.small-dropdown.button-time-interval-input .start-time,
+.small-dropdown.button-time-interval-input .interval-separator,
+.small-dropdown.button-time-interval-input .end-time {
+	display: inline-block;
+}

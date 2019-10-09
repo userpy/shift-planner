@@ -1,0 +1,640 @@
+<!--
+Copyright 2018 ООО «Верме»
+Страница карточки сотрудника аутсорсингового агентства.
+Зависимости:
+	* datepicker_language.js
+	* outsource_utils.js
+	* outsource_snippets.js
+	* outsource_requests.js
+-->
+<style>
+@media (max-width: 1565px){
+	.m-portlet .m-form.m-form--fit>.m-portlet__body,
+	.m-datatable.m-datatable--default.m-datatable--loaded>.m-datatable__table {
+		margin-top: 46px;
+	}
+	.m-tabs-line.nav.nav-tabs .nav-link i, .m-tabs-line a.m-tabs__link i {
+		display: none !important;
+	}
+}
+</style>
+{% extends "base/page_content_w_search.html" %}
+{% load static %}
+{% load compress %}
+{% block page-js %}
+	<script>
+		var JOB_HISTORY_ID_SELECTED = ''
+		var request_page_party = '{{ request.page.party }}'
+		var csrf_token = '{{ csrf_token }}'
+		var employee_id = {% if employee_id %} {{ employee_id }} {% else %} null {% endif %}
+		var user = new function(){
+			this.is_superuser = {% if user.is_superuser %} true {% else %} false {% endif %}
+		}
+		var is_transition_enabled ={% if is_transition_enabled %} true {%  else %} false {% endif %}
+	</script>
+	{% compress js %}
+		<script src="{% static "js/datepicker_language_ru.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/outsource_utils.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/outsource_snippets.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/outsource_requests.js" %}" type="text/javascript"></script>
+
+		<script src="{% static "js/pages/common/tables_l10n.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/common/table_cell_values.js" %}" type="text/javascript"></script>
+		
+		<script src="{% static "js/pages/employee_profile/main.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/employee_profile/modals.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/employee_profile/tables.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/employee_profile/datepicker.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/employee_profile/doc_uploader_wrap.js" %}" type="text/javascript"></script>
+		{% if employee_id %}
+			<script src="{% static "js/pages/employee_profile/edit_empl.js" %}" type="text/javascript"></script>
+			<script src="{% static "js/pages/doc_downloader.js" %}" type="text/javascript"></script>
+		{% endif %}
+	{% endcompress %}
+{% endblock page-js %}
+
+{% block page-content %}
+<link href="{% static "css/table_loader_fix.css" %}" rel="stylesheet" type="text/css"/>
+<style>
+	body {
+		overflow-y: scroll !important;
+	}
+	#modal_job .datepicker{
+		width: 100%;
+	}
+</style>
+
+<div class="row">
+	<div class="col-xl-3 col-lg-4">
+		<div class="m-portlet m-portlet--full-height  ">
+			<div class="m-portlet__body">
+				<div class="m-card-profile">
+					<div class="m-card-profile__title m--hide">
+						Профиль
+					</div>
+					<div class="m-card-profile__pic">
+						<div class="">
+							<i class="fa fa-user" style="font-size: 86px;margin-bottom: 28px;"></i>
+						</div>
+					</div>
+					<div class="m-card-profile__details">
+						<span class="m-card-profile__name fullname">ФИО </span>
+						<div id="profile_jobs" class="m-card-profile__email m-link">
+						</div>
+					</div>
+				</div>
+				<div class="m-portlet__body-separator"></div>
+				<div id="profile_violations" class="m-card-profile__email m-link"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-9 col-lg-8">
+		<div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+			<div class="m-portlet__head">
+				<div class="m-portlet__head-tools">
+					<ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+						<li class="nav-item m-tabs__item m-tabs__link">
+							<button class="btn btn-secondary" id="history_back" data-rpp="{{request.page.party}}"> <i class="fa fa-history"></i> Назад </button>
+						</li>
+						<li class="nav-item m-tabs__item" id="main_tab">
+							<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_main" role="tab">
+								<i class="flaticon-share m--visible-desktop"></i>
+								Основная
+							</a>
+						</li>
+						{% if employee_id %}
+						<li class="nav-item m-tabs__item" id="docs_tab">
+							<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_docs" role="tab">
+								<i class="flaticon-file m--visible-desktop"></i>
+								Документы
+							</a>
+						</li>
+						<li class="nav-item m-tabs__item" id="jobs_tab">
+							<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_jobs" role="tab">
+								<i class="flaticon-app m--visible-desktop"></i>
+								Функции
+							</a>
+						</li>
+						<li class="nav-item m-tabs__item" id="organizations_tab">
+							<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_orgs" role="tab">
+								<i class="flaticon-users m--visible-desktop"></i>
+								Клиенты
+							</a>
+						</li>
+						<li class="nav-item m-tabs__item" id="events_tab">
+							<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_events" role="tab">
+								<i class="flaticon-time m--visible-desktop"></i>
+								Мероприятия
+							</a>
+						</li>
+						<li class="nav-item m-tabs__item" id="transitions_tab">
+							<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_transitions" role="tab">
+								<i class="flaticon-infinity m--visible-desktop"></i>
+								История переводов
+							</a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+					<div class="m-portlet__head-tools" id="actions">
+							<ul class="m-portlet__nav">
+									<li class="m-portlet__nav-item m-portlet__nav-item--last">
+											<div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+													<a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
+															<i class="la la-gear"></i>
+													</a>
+													<div class="m-dropdown__wrapper">
+															<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+															<div class="m-dropdown__inner">
+																	<div class="m-dropdown__body">
+																			<div class="m-dropdown__content">
+																					<ul class="m-nav">
+																							<li class="m-nav__section m-nav__section--first">
+																								<span class="m-nav__section-text">
+																									Действия
+																								</span>
+																							</li>
+																							{% if request.page.party == 'agency' or request.page.party == 'promo' or request.page.party == 'broker' %}
+																							<li class="m-nav__item">
+																								<a href="#" class="m-nav__link" id="nav_create_employee">
+																									<i class="m-nav__link-icon fa fa-plus-circle"></i>
+																									<span class="m-nav__link-text">
+																										Создать сотрудника
+																									</span>
+																								</a>
+																							</li>
+																							{% endif %}
+																							{% if employee_id %}
+																								{% if request.page.party == 'agency' or request.page.party == 'promo' or request.page.party == 'broker' %}
+																								<li class="m-nav__item">
+																									<a href="#" class="m-nav__link" id="nav_edit_employee">
+																										<i class="m-nav__link-icon fa fa-plus-circle"></i>
+																										<span class="m-nav__link-text">
+																											Редактировать сотрудника
+																										</span>
+																									</a>
+																								</li>
+																								<li class="m-nav__item">
+																									<a href="#" class="m-nav__link" id="nav_hire_outsourcer">
+																										<i class="m-nav__link-icon fa fa-plus-circle"></i>
+																										<span class="m-nav__link-text">
+																											Прикрепить к клиенту
+																										</span>
+																									</a>
+																								</li>
+																								{% endif %}
+																								<li class="m-nav__item">
+																									<a href="#" class="m-nav__link" id="nav_fire_outsourcer">
+																										<i class="m-nav__link-icon fa fa-minus-circle"></i>
+																										<span class="m-nav__link-text">
+																											Открепить от клиента
+																										</span>
+																									</a>
+																								</li>
+																								{% if request.page.party == 'agency' or request.page.party == 'promo' or request.page.party == 'broker' %}
+																								<li class="m-nav__item">
+																									<a href="#" class="m-nav__link" id="nav_fire_employee">
+																										<i class="m-nav__link-icon fa fa-minus-circle"></i>
+																										<span class="m-nav__link-text">
+																											Уволить сотрудника
+																										</span>
+																									</a>
+																								</li>
+																								{% endif %}
+																								{% if request.page.party == 'agency' or request.page.party == 'promo' or request.page.party == 'broker' or request.page.party == 'client' %}
+																								<li class="m-nav__item">
+																									<a href="#" class="m-nav__link" id="nav_get_employee_schedule">
+																										<i class="m-nav__link-icon fa fa-file-download"></i>
+																										<span class="m-nav__link-text">
+																											Скачать график смен
+																										</span>
+																									</a>
+																								</li>
+																								{% endif %}
+																								<li class="m-nav__item">
+																									<a href="#" class="m-nav__link" id="nav_download_employee_docs">
+																										<i class="m-nav__link-icon fa fa-file-download"></i>
+																										<span class="m-nav__link-text">
+																											Скачать мед. книжку
+																										</span>
+																									</a>
+																								</li>
+																								{% if is_transition_enabled %}
+																								<li class="m-nav__item">
+																									<a href="#" class="m-nav__link" id="nav_employee_transition">
+																										<i class="m-nav__link-icon fa fa-file-download"></i>
+																										<span class="m-nav__link-text">
+																											Перевести сотрудника
+																										</span>
+																									</a>
+																								</li>
+																								{% endif %}
+																							{% endif %}
+																					</ul>
+																			</div>
+																	</div>
+															</div>
+													</div>
+											</div>
+									</li>
+							</ul>
+					</div>
+			</div>
+			<div class="tab-content">
+				<!--1-я вкладка - Основная -->
+				<div class="tab-pane active" id="m_user_profile_tab_main">
+					<form id="create-employee-form" action="/api-employee/?format=json" method="POST" class="m-form m-form--fit m-form--label-align-right" _lpchecked="1">
+						{% csrf_token %}
+						<div class="m-portlet__body">
+							{% if not employee_id %} 
+								<div class="alert alert-danger agency-needed-error" style="display: none; margin: 0 30px">Для создания сотрудника необходимо выбрать агентство.</div>
+							{% endif %}
+
+							<div class="m-form__section m-form__section--first">		
+								<div class="m-form__heading">
+									<h3 class="m-form__heading-title">1. Персональные данные</h3>
+								</div>
+								<div class="form-group m-form__group row">
+									<label class="col-lg-2 col-form-label">ТН в агентстве</label>
+									<div class="col-lg-6">
+										<input name="number" data-required id="number" class="form-control m-input" type="text" style="cursor: auto;" {{disabled}}>
+										<span id="number-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<label class="col-lg-2 col-form-label">Фамилия</label>
+									<div class="col-lg-6">
+										<input name="surname" data-required id="surname" class="form-control m-input" type="text" style="cursor: auto;" {{disabled}}>
+										<span id="surname-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<label class="col-lg-2 col-form-label">Имя</label>
+									<div class="col-lg-6">
+										<input name="firstname" data-required id="firstname" class="form-control m-input" type="text" {{disabled}}>
+										<span id="firstname-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<label class="col-lg-2 col-form-label">Отчество</label>
+									<div class="col-lg-6">
+										<input name="patronymic" id="patronymic" class="form-control m-input" type="text" {{disabled}}>
+										<span id="patronymic-help" class="m-form__help text-danger" style="display: none">Если отчества нет оставьте поле пустым</span>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<label class="col-lg-2 col-form-label">Пол</label>
+									<div class="col-lg-6">
+										<div id="gender" class="m-radio-inline">
+											<label class="m-radio">
+											<input type="radio" class="form-control" name="gender" value="male" checked="checked" {{disabled}}> Мужской
+											<span></span>
+											</label>
+											<label class="m-radio">
+											<input type="radio" class="form-control" name="gender" value="female" {{disabled}}>Женский
+											<span></span>
+											</label>
+										</div>
+										<span id="gender-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<label class="col-lg-2 col-form-label">Дата рождения</label>
+									<div class="col-lg-6">
+										<input type="text" data-required class="form-control datepicker" name="date_of_birth" id="date_of_birth" {{disabled}}>
+										<span id="date_of_birth-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<label class="col-lg-2 col-form-label">Место рождения</label>
+									<div class="col-lg-6">
+										<input name="place_of_birth" data-required id="place_of_birth" class="form-control m-input" type="text" {{disabled}}>
+										<span id="place_of_birth-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+							</div>
+							<div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
+							<div class="m-form__section m-form__section--last">		
+								<div class="m-form__heading">
+									<h3 class="m-form__heading-title">2. Агентство </h3>
+								</div>
+								<div class="form-group m-form__group row">
+									<label class="col-lg-2 col-form-label">Агентство </label>
+									{% if employee_id %}
+									<i data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Карточка агентства" class="flaticon-file agency_card_btn pl-4 mt-2" style="cursor:pointer"></i>
+									{% endif %}
+                                    <!-- Модальное окно агенство !!!!!!! -->
+									<div class="col-lg-6">	
+										{% if employee_id %}
+										<select id="agency_id" style="display: none"></select>
+										<div style="padding-top: 8px" id="agency_id_text"></div>
+										{% endif %}
+										{% if not employee_id %}
+											<select data-required id="agency_id"></select>
+											<span id="agency_id-help" class="m-form__help text-danger" style="display: none;"></span>
+										{% endif %}
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<label class="col-lg-2 col-form-label">Дата принятия</label>
+									<div class="col-lg-6">
+										<input data-required type="text" class="form-control datepicker" name="receipt" id="receipt"  {{disabled}}>
+										<span id="receipt-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+								{% if employee_id %}
+								<div class="form-group m-form__group row">
+									<label class="col-lg-2 col-form-label"> Дата увольнения</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control datepicker" name="dismissal" id="dismissal" {{disabled}}>
+										<span id="dismissal-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+								{% endif %}
+								<div class="form-group m-form__group row">
+									<label class="col-lg-2 col-form-label"> </label>
+									<div class="col-lg-6">
+										 
+									</div>
+								</div>
+                                <!-- Вывод ошибок -->
+								<div id="error_alert" class="custom-alerts alert alert-danger in" style="display: none;">
+									Поле "Табельный номер" должно быть уникальным
+								</div>
+							</div>
+						</div>
+						<div class="m-portlet__foot m-portlet__foot--fit">
+							<div class="m-form__actions">
+								<div class="row">
+									<div class="col-2">
+
+									</div>
+									<div class="col-7">
+										<!--<div id="prefix_616302724127" class="custom-alerts alert alert-danger fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>some alert text goes here...</div>-->
+										<button id="submit_button" type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom" {% if disabled %} style="display: none" {% endif %}>Сохранить</button>&nbsp;&nbsp;
+										<button id="reset_button" type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom" {% if disabled %} style="display: none" {% endif %}>Отмена</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				{% if employee_id %}
+				<!-- вкладка функции -->
+				<div class="tab-pane " id="m_user_profile_tab_jobs">
+					<div class="m-portlet__body">
+						{% if request.page.party == 'agency' or request.page.party == 'promo' or request.page.party == 'broker' %}
+						<div class="m-form m-form--label-align-right m--margin-top-20">
+							<div class="row align-items-center">
+								<div class="col-xl-8 order-1 order-xl-1">
+								</div>
+								<div class="col-xl-4 order-2 order-xl-2 m--align-right">
+									<button type="button" id="modal_add_job_open" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+										<span>
+											<i class="fa fa-plus-circle"></i>
+											<span>Добавить</span>
+										</span>
+									</button>
+									<div class="m-separator m-separator--dashed d-xl-none"></div>
+								</div>
+							</div>
+						</div>
+						<br>
+						{% endif %}
+						<div id="jobs_datatable_table" ></div>
+					</div>
+
+					<!-- Модальное окно добавления и сохранения функции -->
+					<div class="modal fade" id="modal_job"  role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+						<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						{% csrf_token %}
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Назначение функции</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="form-group m-form__group row">
+									<label for="jobs_list" class="col-2 col-form-label">Функция</label>
+									<div class="col-8" id="modal_add_job_job_column">
+										<select name="job_id" class="form-control" type="text" id="jobs_list" style="width: 100%; border-color: #ebedf2; color: #575962;"></select>
+										<span id="job_id-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<label for="job_start" class="col-2 col-form-label">Действует</label>
+									<div class="col-8">
+										<div class="input-daterange input-group" id="m_datepicker_5">
+											<input type="text" data-required class="form-control datepicker col-5" name="job_start" id="job_start">
+											<div class="input-group-append">
+												<span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
+											</div>
+											<input type="text" class="form-control datepicker col-5" name="job_end" id="job_end">
+											<span id="job_start-help" class="m-form__help text-danger" style="display: none;"></span>
+										</div>
+										<span id="start-help" class="m-form__help text-danger" style="display: none;"></span>
+										<span id="job_start-help" class="m-form__help text-danger" style="display: none;"></span>
+										<span id="end-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button id="add_job" type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom">Добавить</button>
+								<button id="edit_job" type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom">Изменить</button>
+								<button id="modal_job_close" type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+							</div>
+						</div>
+						</div>
+					</div>
+					<!-- Модальное окно добавления и сохранения функции -->
+
+					<!-- Модальное окно удаления функции -->
+					<div class="modal fade" id="modal_job_delete"  role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+						<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+						{% csrf_token %}
+						<div class="modal-content">
+								<div class="modal-header">
+								<input type="hidden" name="job_history_id" id="modal_form_delete_job_history_id">
+								<h5 class="modal-title">Удалить функцию</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								</div>
+								<div class="modal-body">
+									<p>Удалить выбранную функцию сотрудника?</p>
+								</div>
+								<div class="modal-footer">
+								<button type="button" class="btn btn-danger" id="modal_job_delete_button">Удалить</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+								</div>
+						</div>
+						</div>
+					</div>
+				</div>
+				<!-- end вкладка функции-->
+
+				<!-- вкладка документы-->
+				<div class="tab-pane " id="m_user_profile_tab_docs">
+					<div class="m-portlet__body">
+						{% if request.page.party == 'agency' or request.page.party == 'promo' or request.page.party == 'broker' %}
+						<div class="m-form m-form--label-align-right m--margin-top-20">
+							<div class="row align-items-center">
+								<div class="col-xl-8 order-1 order-xl-1">
+								</div>
+								<div class="col-xl-4 order-2 order-xl-2 m--align-right">
+									<button type="button" id="modal_add_doc_open" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+										<span>
+											<i class="fa fa-plus-circle"></i>
+											<span>Добавить</span>
+										</span>
+									</button>
+									<div class="m-separator m-separator--dashed d-xl-none"></div>
+								</div>
+							</div>
+						</div>
+						<br>
+						{% endif %}
+						<div id="docs_datatable_table" ></div>
+					</div>
+
+					<!-- Модальное окно добавления и сохранения документа -->
+					<div class="modal fade" id="modal_doc"  role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+						<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						{% csrf_token %}
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="docs_modal_title">Назначение документа</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="form-group m-form__group row">
+									<label for="docs_list" class="col-2 col-form-label">Документ</label>
+									<div class="col-9" id="modal_add_job_job_column">
+										<select name="doc_id" class="form-control" type="text" data-required id="doc_types_list" style="width: 100%; border-color: #ebedf2; color: #575962;"></select>
+										<span id="doc_type_id-help" class="m-form__help text-danger" style="display: none;"></span>
+										<span id="doc_types_list-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<label for="doc_start" class="col-2 col-form-label">Действует</label>
+									<div class="col-9">
+										<div class="input-daterange input-group" id="doc_period_selects">
+											<input type="text" class="form-control datepicker col-6" name="doc_start" id="doc_start">
+											<div class="input-group-append">
+												<span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
+											</div>
+											<input type="text" class="form-control datepicker col-6" name="doc_end" id="doc_end">
+										</div>
+										<span id="start-help" class="m-form__help text-danger" style="display: none;"></span>
+										<span id="end-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<label for="doc_text" class="col-2 col-form-label">Текст</label>
+									<div class="col-9">
+										<textarea rows="2" name="doc_text" id="doc_text" class="form-control m-input" type="text"></textarea>
+										<span id="text-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+								<script>
+									is_verme_docs_enabled = {% if is_verme_docs_enabled %} true {% else %} false {% endif %}
+								</script>
+								{% if is_verme_docs_enabled %}
+									<div class="form-group m-form__group row">
+										<label for="doc_files" class="col-2 col-form-label">Файлы</label>
+										<div class="col-9 doc-uploader-col">
+											<div class="doc-uploader"></div>
+										</div>
+									</div>
+									{% include "base/components/docs_upload_field.html" %}
+								{% endif %}
+							</div>
+							<div class="modal-footer">
+								<div class="docs modal-controls modal-controls--default">
+									<button id="modal_doc_close" type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+									<button id="edit_doc" type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom">Изменить</button>
+									<button id="add_doc_button" type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom">Добавить</button>
+									<button id="doc_delete_button" type="button" class="btn btn-danger m-btn m-btn--air m-btn--custom">Удалить</button>
+								</div>
+								<div class="docs modal-controls modal-controls--confirm">
+									<span class="controls-tip m--font-danger">Удалить запись?</span>
+									<button id="doc_delete_submit_action_button" type="button" class="btn btn-danger m-btn m-btn--air m-btn--custom">Да</button>
+									<button id="doc_delete_cancel_action_button" type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom">Нет</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+					<!-- Модальное окно добавления и сохранения документа -->
+
+				<!-- end вкладка документы -->
+
+				<!--3-я вкладка-->
+				<div class="tab-pane " id="m_user_profile_tab_orgs">
+					<div class="m-portlet__body">
+						<div id="organizations_datatable_table" ></div>
+					</div>
+				</div>
+
+				<!--4-я вкладка -->
+				<div class="tab-pane " id="m_user_profile_tab_events">
+					<div class="m-portlet__body">
+						<div id="events_datatable_table" ></div>
+					</div>
+				</div>
+				<!-- вкладка перевода -->
+				<div class="tab-pane " id="m_user_profile_tab_transitions">
+					<div class="m-portlet__body">
+						<div id="transitions_datatable_table" ></div>
+					</div>
+				</div>
+				<!-- Модальное окно перевода -->
+				<div class="modal fade" id="modal_transitions"  role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						{% csrf_token %}
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Перевод сотрудника</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="form-group m-form__group row">
+									<label for="agency_list" class="col-2 col-form-label">Целевое агентство</label>
+									<div class="col-8">
+										<select data-required id="mt_agency_select" name="agency_id" class="form-control" type="text" id="jobs_list" style="width: 100%; border-color: #ebedf2; color: #575962;"></select>
+										<span id="agency_id-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+								<div class="form-group m-form__group row">
+									<label for="agency_start" class="col-2 col-form-label">Дата</label>
+									<div class="col-8">
+										<input data-required type="text" class="form-control datepicker" name="date_transition" id="mt_date">
+										<span id="date_transition-help" class="m-form__help text-danger" style="display: none;"></span>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button id="mt_do_transiton" type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom">Перевести</button>
+								<button id="mt_close" type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Модальное окно перевода -->
+				<!-- end вкладка перевода-->
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock page-content %}

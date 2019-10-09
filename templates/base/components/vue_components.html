@@ -1,0 +1,48 @@
+{% load static %}
+{% load compress %}
+<div>
+	<script type = "text/template" id="vp_selectbox">
+		<div class="vue-select-box-wrap">
+			<div ref="selector-body"></div>
+		</div>
+	</script>
+	
+	<script type = "text/template" id="vp_dateselect">
+		<div class="vue-date-select-wrap">
+			<div ref="selector-body"></div>
+		</div>
+	</script>
+	
+	<script type = "text/template" id="vp_timeselect">
+		<div class="vue-time-select-wrap">
+			<div ref="selector-body"></div>
+		</div>
+	</script>
+	<script type = "text/template" id="vp_mobilableTable">
+		<div class="mobilable-table" ref="table-elem">
+			<div class="mt-col-left">
+				<div class="mt-row mt-head-row" v-if="tableData.head.length" v-for="head in tableData">
+					<div class="mt-cell" v-text="head[0].textContent"></div>
+				</div>
+				<div class="mt-row" v-for="row in rows">
+					<div class="mt-cell" v-text="row.cells[0].textContent"></div>
+				</div>
+			</div>
+			<div class="mt-col-right">
+				<div class="mt-row mt-head-row" v-if="tableData.head.length" v-for="(head, i) in tableData">
+					<div class="mt-cell" v-if="i > 0" v-for="headCell in head" v-text="headCell.textContent"></div>
+				</div>
+				<div class="mt-row" v-for="(row, i) in rows">
+					<div class="mt-cell" v-if="i > 0" v-for="cell in rows.cells" 
+						v-text="cell.textContent ? cell.textContent : ''">
+						<div v-for="elem in ell.elems" 
+							v-text="elem.textContent ? elem.textContent : ''"
+							:class="elem.classList ? elem.classList : ''"
+						></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+</div>
+<script src="{% static "frames/claims/js/plugins/vue_components.js" %}"></script>

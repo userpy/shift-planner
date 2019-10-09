@@ -1,0 +1,5 @@
+/* для таблиц, у которых крутилка загрузки выводится не по центру */
+.blockUI.blockMsg.blockElement{
+	left: 50%!important;
+	margin-left: -62px!important;
+}

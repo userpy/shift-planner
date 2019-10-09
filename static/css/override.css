@@ -1,0 +1,156 @@
+/* крестик в селекторе */
+.select2-container--default .select2-selection--single .select2-selection__rendered .select2-selection__clear{
+	font-size: 21px;
+	top: 17px;
+	right: 21px;
+}
+/* круглая кнопка в табличках емплоее_лист и хк_емплоее_лист */
+.table-with-button-on-last-col .a-active {
+	border-color: #00c5dc!important;
+	color: #fff!important;
+	background-color: #00c5dc!important;
+}
+.table-with-button-on-last-col .a-active > i {
+	color: #fff!important;
+}
+.table-with-button-on-last-col td:last-child{
+	cursor: pointer;
+}
+/* end круглая кнопка в табличках емплоее_лист и хк_емплоее_лист */
+
+/* длинный текст в выбранной опции в селектах обрезался с ... */
+.select2-selection__rendered{
+	padding-right: 22px!important;
+}
+.select2-container .select2-selection--single .select2-selection__rendered {
+	padding-right: 22px!important;
+	white-space:normal;
+}
+/* динамичные футеры в модалках, как при редактировании квоты*/
+.modal-controls{
+	width: 100%;
+}
+.modal-controls .controls-tip{
+	display: inline-block;
+	padding-top: 8px;
+}
+.modal-controls .btn{
+	float: right;
+	margin: 0 5px;
+}
+/* чтобы иконки в таблицах не обрезались 
+.m-datatable__cell span{
+	overflow: visible!important;
+}
+*/
+/* длинные названия в столбцах */
+
+td.m-datatable__cell[data-field=agency] span {overflow-y: hidden !important}
+
+/* чуть-чуть уже колонки в таблицах */
+.m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__head .m-datatable__row>.m-datatable__cell, .m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__body .m-datatable__row>.m-datatable__cell, .m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__foot .m-datatable__row>.m-datatable__cell {
+	padding: 11px 0px 10px 8px;
+}
+/* заголовок группы опций в селекторе должен выделяться жирным цветом */
+.select2-container--default .select2-results__option .select2-results__group{
+	font-weight: bold!important;
+}
+/* вывод нарушений в профиле сотрудника */
+.empl-violation{
+	width: 100%;
+	table-layout: fixed;
+	overflow: hidden;
+}
+.empl-violation .m-alert__icon{
+	width: 72px!important;
+}
+/* иконка в алерт-ерроре тоже должна быть белой */
+.alert-warning .m-alert__icon .fa {
+	color: white!important;
+}
+/* прикрепление документов в попапах */
+.modal-body .du-body{
+	width: calc(100% - 20px);
+	height: 230px;
+}
+.modal-body .doc-uploader-col{
+	padding: 0 4px;
+}
+/* файлы в дропзонах */
+.dropzone .dz-preview{
+	width: 40%!important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.dropzone .dz-preview a{
+	white-space: normal;
+}
+/* поиск над триселектом */
+.tree-search{
+	width: 187px;
+	float: left;
+	user-select: none;
+}
+.tree-search-block{
+	margin-bottom: 12px;
+	overflow: hidden;
+}
+.tree-search-block .clear-search{
+	padding: 6px 6px;
+	cursor: pointer;
+	float: right;
+}
+.tree-search-results {
+	max-height: 300px;
+	min-height: 40px;
+	width: 100%;
+	overflow-y: auto;
+	float: left;
+	margin-top: 8px;
+}
+.tree-search-results .button{
+	width: 100%;
+	padding: 8px;
+	color: #575962;
+	cursor: pointer;
+	border: 1px solid #ebedf2;
+}
+
+.tree-search-results .button:hover{
+	background: #f4f5f8;
+}
+.tree-search-results .button .path{
+	opacity: 0.5;
+	display: block;
+}
+
+.tree-search-results .button .help{
+	color: grey;
+	padding: 0 4px;
+}
+.tree-search-results .no-results{
+	color: grey;
+	padding: 16px 8px;
+	font-style: italic;
+	white-space: nowrap;
+	text-align: center;
+	width: 100%;
+	display: inline-block;
+} 
+/* фильтр по нарушениям в таблицах */
+#violation_select + .select2{
+	width: 88%;
+	min-height: 39px;
+	overflow: hidden;
+}
+#violation_select + .select2 .selec2-selection{
+	height: 38px;
+}
+#violation_select + .select2 .select2-selection__choice{
+	/*width: 40%;*/
+	overflow: hidden;
+	display: inline-block;
+}
+#violation_select + .select2 .select2-search--inline{
+	width: 100px;
+}

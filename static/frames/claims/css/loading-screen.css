@@ -1,0 +1,27 @@
+/*
+* Copyright © 2016 ООО «Верме»
+* 
+* Стили загрузочного экрана
+*/
+.custom-loading-screen {
+  position: fixed;
+  z-index: 3;
+  opacity: 0.99;
+  background: #dbdee1;
+  overflow: hidden;
+}
+.custom-loading-screen .d-t {
+  height: 100%;
+}
+.custom-loading-screen .d-td {
+  vertical-align: middle;
+}
+.custom-loading-screen .icon {
+  text-align: center;
+  font-size: 18px;
+  color: #109a5e;
+}
+.custom-loading-screen .icon i {
+  animation: rotate infinite linear 3.5s;
+}
+

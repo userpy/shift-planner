@@ -1,0 +1,26 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<form action="" method="post">
+  {% csrf_token %}
+{% if result_count %}
+    <p>
+    Выбранные квоты используются в рамках {{ result_count }} промо смен.
+        Удаление квот приведет к удалению зависящих от квот промо смен.
+    </p>
+{% endif %}
+
+<p>
+Вы уверены что хотите удалить выбранные квоты?
+</p>
+  {% for quota in quotas %}
+    <p>
+      {{ quota }}
+    </p>
+    <input type="hidden" name="_selected_action" value="{{ quota.pk }}" />
+  {% endfor %}
+
+  <input type="hidden" name="action" value="delete_selected" />
+  <input type="submit" name="apply" value="Удалить квоты"/>
+</form>
+{% endblock %}

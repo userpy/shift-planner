@@ -1,0 +1,47 @@
+[
+  {
+    "model": "employees.agencyemployee",
+    "pk": 1,
+    "fields": {
+      "number": "ТН_1",
+      "surname": "Иванов",
+      "firstname": "Иван",
+      "patronymic": "Иванович",
+      "gender": "male",
+      "place_of_birth": "Москва",
+      "date_of_birth": "1998-01-01",
+      "receipt": "2017-01-01",
+      "agency_id": "1"
+    }
+  },
+  {
+    "model": "employees.agencyemployee",
+    "pk": 2,
+    "fields": {
+      "number": "ТН_2",
+      "surname": "Петров",
+      "firstname": "Петр",
+      "patronymic": "Петрович",
+      "gender": "male",
+      "place_of_birth": "Питер",
+      "date_of_birth": "1980-01-01",
+      "receipt": "2014-01-01",
+      "agency_id": "2"
+    }
+  },
+  {
+    "model": "employees.agencyemployee",
+    "pk": 3,
+    "fields": {
+      "number": "ТН_3",
+      "surname": "Дмитриев",
+      "firstname": "Дмитрий",
+      "patronymic": "Дмитриеваич",
+      "gender": "male",
+      "place_of_birth": "Москва",
+      "date_of_birth": "1978-01-01",
+      "receipt": "2015-01-01",
+      "agency_id": "2"
+    }
+  }
+]

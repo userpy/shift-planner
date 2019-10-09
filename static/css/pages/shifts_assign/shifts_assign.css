@@ -1,0 +1,422 @@
+.portlet-search-form {
+	display: none;
+}
+
+.main-page-portlet .m-portlet__body {
+	padding-top: 0;
+}
+
+.sa-dropdown {
+	position: fixed;
+	background: #fff;
+	padding: 20px 30px;
+	width: 355px;
+	box-shadow: 0px 0px 15px 1px rgba(69,65,78,0.2);
+	z-index: 1;
+}
+
+.sa-dropdown .head-row {
+	text-align: center;
+	overflow: hidden;
+}
+
+.sa-dropdown .head-row .btn {
+	position: absolute;
+	right: 21px;
+	top: 16px;
+}
+
+.sa-dropdown .time-row > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.sa-dropdown .time-row .time-input {
+	width: 108px;
+}
+
+.sa-dropdown .violation-row {
+	padding-top: 0 !important;
+	padding-left: 16px !important;
+	margin-top: -10px;
+}
+
+.sa-dropdown .input-date-range {
+	width: 245px;
+}
+
+.sa-dropdown .sse-row {
+	padding: 15px 0;
+}
+.sa-dropdown .sse-row.readonly {
+	pointer-events: none;
+}
+.sa-dropdown .sse-row.readonly .change-empl-butt {
+	width: 292px !important;
+}
+
+.sa-dropdown .sse-row.readonly .clear-select {
+	display: none;
+}
+
+.sa-dropdown .sse-row.readonly input,
+.sa-dropdown .sse-row.readonly button {
+	background: #f5f5f5 !important;
+}
+
+
+.sa-dropdown .sse-row.text-row {
+	padding-left: 16px;
+}
+
+.sa-dropdown .controls-row .btn-copy {
+	float: right;
+}
+
+.sa-dropdown .empl-select {
+	padding-right: 35px;
+	position: relative;
+	overflow: hidden;
+}
+
+.sa-dropdown .empl-select .change-empl-butt {
+	width: 270px;
+	text-align: left;
+}
+
+.sa-dropdown .empl-select .change-empl-butt i {
+	float: right;
+	padding-top: 7px;
+	margin-right: -7px;
+}
+
+.sa-dropdown .empl-select .clear-select {
+	position: absolute;
+	right: 3px;
+	bottom: 12px;
+	cursor: pointer;
+	position: absolute;
+	right: 3px;
+	bottom: 12px;
+	cursor: pointer;
+}
+
+.sa-dropdown.readonly-form .time-row,
+.sa-dropdown.readonly-form .employee-row {
+	pointer-events: none;
+}
+
+.sa-dropdown.readonly-form .change-empl-butt {
+	width: 292px !important;
+}
+
+.sa-dropdown.readonly-form .clear-select {
+	display: none;
+}
+
+.readonly-form input,
+.readonly-form button {
+	background: #f5f5f5 !important;
+}
+
+.empl-select-dd {
+	background: #fff;
+	box-shadow: 0px 0px 15px 1px rgba(69,65,78,0.2);
+	height: 300px;
+	width: 295px;
+	border-radius: 4px !important;
+	position: fixed;
+}
+
+.empl-select-dd .empl-filter-select {
+	position: relative;
+	top: 9px;
+	left: 16px;
+	width: 264px;
+}
+
+.empl-select-dd .empl-filter-select button {
+	width: 45%;
+}
+
+.empl-select-dd .inner {
+	position: absolute;
+	top: 46px;
+	width: 100%;
+	bottom: 58px;
+	overflow-y: auto;
+}
+.empl-select-dd .inner .search-input{
+	position: relative;
+	top: 9px;
+	left: 16px;
+	width: 264px;
+	height: 30px;
+	margin-bottom: 10px;
+}
+
+.empl-select-dd .inner .search-input-icon{
+	pointer-events: none;
+	opacity: 0.5;
+	position: absolute;
+	top: 17px;
+	right: 23px;
+}
+
+.empl-select-dd .apply-butt {
+	position: absolute;
+	bottom: 8px;
+	left: 18px;
+}
+
+.empl-select-dd .errow-row {
+	padding: 6px 18px;
+}
+
+.empl-select-dd .loading-rotator {
+	padding: 100px 0 0 0;
+	text-align: center;
+}
+
+.empl-select-dd .empl {
+	padding: 6px 18px;
+	cursor: pointer;
+	border-top: 1px solid #f5f5f5;
+	width: 100%;
+}
+
+.empl-select-dd .empl >div {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.empl-select-dd .empl .empl-viol {
+	opacity: 0.8;
+}
+
+.empl-select-dd .empl.selected {
+	background: #d3d3d3;
+}
+
+.empl-select-dd .empl.disabled {
+	cursor: auto;
+	opacity: 0.5;
+}
+
+.empl-select-dd .empl:hover {
+	background: #f5f5f5;
+}
+
+.copy-to-future-dd {
+	z-index: 101;
+}
+
+.sa-selection-options {
+	position: fixed;
+	z-index: 100;
+	width: 210px;
+}
+
+.sa-selection-options > div {
+	box-shadow: 0px 0px 15px 1px rgba(69,65,78,0.2);
+	border-radius: 8px;
+}
+
+.sa-selection-options .butts-wrap button {
+	width: 210px;
+	border-bottom: 0;
+	text-align: left;
+	border-radius: 0;
+}
+
+.sa-selection-options .butts-wrap i {
+	padding-right: 8px;
+	position: relative;
+	top: -2px;
+}
+
+.sa-selection-options .butts-wrap .icon-expand {
+	padding-right: 4px;
+	float: right;
+	padding-top: 10px;
+	padding-right: 0;
+}
+
+.sa-selection-options .placeholder {
+	pointer-events: none;
+}
+
+.shift-assign-table .tw-u-row.copied,
+.shift-assign-table .tw-u-row.copied-week {
+	border: 1px solid #9816f4;
+}
+
+.shift-assign-table .selection-zone {
+	position: fixed;
+	border: 1px solid #808080;
+	pointer-events: none;
+	z-index: 100;
+}
+
+.shift-assign-table .head-left-butts > div {
+	display: inline-block;
+}
+
+.shift-assign-table .head-left-butts > div:nth-child(n + 1) {
+	margin-left: 8px;
+}
+
+.shift-assign-table .tw-body .empl-block {
+	min-height: 54px;
+}
+
+.shift-assign-table .tw-body .empl-block.selected {
+	background: rgba(88,103,221,0.2);
+}
+
+.shift-assign-table .tw-body .tw-row:hover .tw-col-1 {
+	background: #f9f9f9;
+}
+
+.shift-assign-table .tw-body .tw-u-row:hover {
+	background: #f9f9f9;
+}
+
+.shift-assign-table .tw-u-row .week {
+	height: 100%;
+}
+
+.shift-assign-table .tw-u-row .day {
+	border-right: 1px solid #ebedf2;
+	height: 100%;
+	display: inline-flex;
+	vertical-align: top;
+	position: relative;
+	cursor: pointer;
+}
+
+.shift-assign-table .tw-u-row .day .day-back-wrap {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 2px;
+}
+
+.shift-assign-table .tw-u-row .day .day-back-wrap .day-zone-background {
+	border: 2px solid transparent;
+}
+
+.shift-assign-table .tw-u-row .day .day-back-wrap.read-only {
+	background: #f5f5f5;
+}
+
+.shift-assign-table .tw-u-row .day .day-back-wrap.hovered-by-zone {
+	background: rgba(152,22,244,0.2);
+}
+
+.shift-assign-table .tw-u-row .day .day-back-wrap.hovered-by-zone-to-copy {
+	background: rgba(65,199,187,0.2);
+}
+
+.shift-assign-table .tw-u-row.first-urow .day .copied {
+	border-bottom: 0;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.shift-assign-table .tw-u-row.mid-urow .day .copied {
+	border-top: 0;
+	border-bottom: 0;
+	border-radius: 0;
+}
+
+.shift-assign-table .tw-u-row.last-urow .day .copied {
+	border-top: 0;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+
+.shift-assign-table .shift {
+	overflow: hidden;
+	user-select: none;
+}
+.shift-assign-table .avail {
+	overflow: hidden;
+	user-select: none;
+	height: 100%;
+	background: rgba(255, 0, 116, 0.1);
+	position: absolute;
+}
+
+.shift-assign-table .shift.selected {
+	box-shadow: 0px 0px 0px 2px #9816f4;
+}
+
+.shift-assign-table .shift.zoom-week {
+	position: absolute;
+	margin: 4px;
+	border-radius: 4px;
+	bottom: 0;
+	top: 0;
+}
+
+.shift-assign-table .shift .shift-inner {
+	background: #ffc0cb;
+	height: 100%;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+.shift-assign-table .shift .time {
+	background: rgba(255,255,255,0.8);
+	display: inline-block;
+	font-size: 12px;
+	line-height: 11px;
+	border-radius: 2px;
+	padding: 2px;
+	margin: 2px;
+	max-width: calc(100% - 4px);
+}
+
+.shift-assign-table .shift .owner-name {
+	overflow: hidden;
+	white-space: nowrap;
+	width: 100%;
+	text-overflow: ellipsis;
+	display: inline-block;
+}
+
+.shift-assign-table .shift.zoom-month {
+	padding: 1px;
+	z-index: 1;
+}
+
+.shift-assign-table .shift.zoom-month .time {
+	padding: 0;
+	max-width: calc(100% - 2px);
+	overflow: hidden;
+	margin: 1px;
+	line-height: initial;
+}
+
+.shift-assign-table .shift.zoom-month .shift-inner {
+	height: 100%;
+}
+
+.shift-assign-table .shift .time .time-start,
+.shift-assign-table .shift .time .time-end {
+	white-space: nowrap;
+}
+
+.shift-assign-table .tw-u-row .day .day-back-wrap.copied,
+.shift-assign-table .tw-u-row .day .day-back-wrap.copied-day {
+	border: 2px solid #9816f4;
+}
+
+.shift-assign-table .tw-u-row .day .day-back-wrap.hovered,
+.shift-assign-table .tw-u-row .day .day-back-wrap.selected {
+	border: 2px solid #34bfa3;
+}

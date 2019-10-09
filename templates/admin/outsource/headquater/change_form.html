@@ -1,0 +1,21 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls admin_static admin_modify %}
+
+{% block extrahead %}{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/tabbed_inlines.css" %}" />
+{% endblock %}
+
+
+{% block object-tools %}
+	<ul class="tabs__caption">
+		<li>Основная</li>
+		<li>Документы</li>
+        	<li>Параметры</li>
+	</ul>
+{{ block.super }}
+{% endblock %}
+
+
+{% block admin_change_form_document_ready %}{{ block.super }}
+<script src="{% static 'admin/js/tabbed_inlines.js' %}"></script>
+{% endblock %}

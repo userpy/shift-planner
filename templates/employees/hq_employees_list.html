@@ -1,0 +1,93 @@
+<!--
+Copyright 2018 ООО «Верме»
+Страница списка сотрудников клиента портала аутсорсинга.
+Зависимости:
+* datepicker_language.js
+* outsource_utils.js
+* outsource_snippets.js
+* outsource_requests.js
+-->
+
+{% extends "base/page_content_w_search.html" %}
+{% load static %}
+{% load compress %}
+{% block page-js %}
+<script>
+	var csrf_token = '{{ csrf_token }}'
+	var agency_list = {% if agency_list %} {{ agency_list |safe}} {% else %} null {% endif %}
+	
+</script>
+{% if is_verme_docs_enabled %}
+	<script>
+		verme_docs_url = '{{ verme_docs_url }}'
+	</script>
+{% endif %}
+		{% compress js %}
+<script src="{% static "js/datepicker_language_ru.js" %}" type="text/javascript"></script>
+<script src="{% static "js/outsource_utils.js" %}" type="text/javascript"></script>
+<script src="{% static "js/outsource_snippets.js" %}" type="text/javascript"></script>
+<script src="{% static "js/outsource_requests.js" %}" type="text/javascript"></script>
+
+<script src="{% static "js/pages/common/tables_l10n.js" %}" type="text/javascript"></script>
+<script src="{% static "js/pages/common/common_selectors.js" %}" type="text/javascript"></script>
+<script src="{% static "js/pages/common/table_reloader.js" %}" type="text/javascript"></script>
+<script src="{% static "js/pages/common/table_cell_values.js" %}" type="text/javascript"></script>
+
+<script src="{% static "js/pages/hq_employees_list/main.js" %}" type="text/javascript"></script>
+<script src="{% static "js/pages/hq_employees_list/modals.js" %}" type="text/javascript"></script>
+<script src="{% static "js/pages/hq_employees_list/datepicker.js" %}" type="text/javascript"></script>
+<script src="{% static "js/pages/hq_employees_list/tables.js" %}" type="text/javascript"></script>
+<script src="{% static "js/pages/hq_employees_list/event_handlers.js" %}" type="text/javascript"></script>
+<script src="{% static "js/pages/doc_downloader.js" %}" type="text/javascript"></script>
+		{% endcompress %}
+{% endblock page-js %}
+
+{% block page-content-search %}
+<div class="col-xl-8 order-1 order-xl-1">
+	<div class="form-group m-form__group row align-items-center">
+		<div class="col-md-3">
+			<div class="m-form__group m-form__group--inline container">
+				<div class="m-form__control">
+					<select class="form-control m-bootstrap-select" id='agency_select'>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="m-input-icon m-input-icon--left">
+				<input type="text" class="form-control m-input" placeholder="Поиск..." id="generalSearch" autocomplete="off">
+				<span class="m-input-icon__icon m-input-icon__icon--left">
+					<span><i class="la la-search"></i></span>
+				</span>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="m-form__group m-form__group--inline container">
+				<div class="m-form__control">
+					<select class="form-control m-bootstrap-select" id='violation_select'>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-xl-4 order-2 order-xl-2 m--align-right">
+	<div class="dropdown pull-right">
+		<button class="btn btn-accent m-btn m-btn--air m-btn--custom btn btn-brand dropdown-toggle" type="button" id="action_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 177px;">
+			Действия
+		</button>
+		<div class="dropdown-menu" aria-labelledby="action_button">
+			<a href="#" id="fire_from_organization_employee_button" class="mass_action dropdown-item">Открепить от клиента</a>
+			<a href="#" id="export_employee_schedule_button" class="mass_action dropdown-item">Скачать график смен</a>
+			<a href="#" id="download_employees_docs" class="dropdown-item" >Скачать мед.книжки</a>
+			<a href="#" id="export_employee_button" class="single_action dropdown-item" >Экспорт в Excel</a>
+		</div>
+	</div>
+</div>
+{% endblock page-content-search %}
+
+{% block page-content-body %}
+	<!--begin: Datatable -->
+	<div class="table-with-button-on-last-col" id="hq_employees_datatable_table" ></div>
+	<!--end: Datatable -->
+{% endblock page-content-body %}

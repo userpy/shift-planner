@@ -1,0 +1,200 @@
+<!--
+Copyright 2018 ООО «Верме»
+Страница подтверждения заявок.
+Зависимости:
+* outsource_requests.js
+-->
+
+{% extends "base/page_content_w_search.html" %}
+{% load static %}
+{% load compress %}
+{% block page-js %}
+<script>
+	page_main_widget = {components:[]}
+</script>
+<link href="{% static "css/pages/shifts_confirm.css" %}" rel="stylesheet" type="text/css"/>
+<script src="{% static "js/pages/shifts_confirm_old/main.js" %}" type="text/javascript"></script>
+<script>
+	var request_id = {{ request_id }}
+	var csrf_token = '{{ csrf_token }}'
+	var outsource_enable = {% if outsource_enable %}true {% else %}false {% endif %}
+	var outsourcing_request_state = '{{ outsourcing_request.state }}'
+
+	var shifts = JSON.parse('{{ shifts|safe }}');
+	var jobs = JSON.parse('{{ jobs|safe }}');
+	var days = JSON.parse('{{ days|safe }}');
+
+	// отфроматировать
+	var SC_OLDER_DATE, SC_NEWER_DATE
+	if ( (jobs.length > 0 || days.length > 0)) {
+		var start = '{{ outsourcing_request.start.isoformat }}'
+		var splitted = start.split('-');
+		var year = parseInt(splitted[0]);
+		var month = parseInt(splitted[1]);
+		var day = parseInt(splitted[2]);
+
+		var start_date = new Date(year, month - 1, day);
+
+		var end = '{{ outsourcing_request.end.isoformat }}'
+		var splitted = end.split('-');
+		var year = parseInt(splitted[0]);
+		var month = parseInt(splitted[1]);
+		var day = parseInt(splitted[2]);
+
+		var end_date = new Date(year, month - 1, day);
+		SC_OLDER_DATE = start_date;
+		SC_NEWER_DATE = end_date;
+
+		$('#month').text(SC_OLDER_DATE.dmy() + '–' + SC_NEWER_DATE.dmy());
+	}
+</script>	
+		{% compress js %}
+<script src="{% static "js/outsource_requests.js" %}" type="text/javascript"></script>
+
+<script src="{% static "js/pages/common/tables_l10n.js" %}" type="text/javascript"></script>
+<script src="{% static "js/pages/common/table_cell_values.js" %}" type="text/javascript"></script>
+
+<script src="{% static "js/pages/shifts_confirm_old/event_handlers.js" %}" type="text/javascript"></script>
+<script src="{% static "js/pages/shifts_confirm_old/tables.js" %}" type="text/javascript"></script>
+{% if outsource_enable %}
+<script src="{% static "js/pages/shifts_confirm_old/confirmed_shifts_table.js" %}" type="text/javascript"></script>
+{% endif %}
+		{% endcompress %}
+{% endblock page-js %}
+
+{% block page-content-header %}Заявка на персонал от
+		{{ outsourcing_request.headquater.name }} /
+		{{ outsourcing_request.organization.parent.name }} /
+		{{ outsourcing_request.organization.name }}{% if outsourcing_request.organization.address %}<h3 class="m-portlet__head-text second-portlet-header">{{ outsourcing_request.organization.address }}</h3>{% endif %}{% endblock page-content-header %}
+{% block page-content-body %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3">
+			<label class="col-form-label">Состояние заявки:</label>
+			<div class="m-input-icon m-input-icon--right">
+				{% if outsourcing_request.state == 'accepted' %}
+				<span class="m-badge m-badge--danger m-badge--dot"></span>&nbsp;
+				<span class="m--font-bold m--font-danger">Заявка получена</span>
+				{% elif outsourcing_request.state == 'ready' %}
+				<span class="m-badge m-badge--info m-badge--dot"></span>&nbsp;
+				<span class="m--font-bold m--font-info">Заявка обработана</span>
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<label class="col-form-label">Начало обработки: </label>
+			<label class="display-label">{{ outsourcing_request.dt_accepted }}</label>
+		</div>
+		<div class="col-lg-3">
+			<label class="col-form-label">Завершение обработки: </label>
+			<label class="display-label">{% if outsourcing_request.dt_ready is not None %} {{ outsourcing_request.dt_ready }} {% endif %}</label>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-4">
+			<label class="col-form-label">Период:</label>
+			<label id="month" style="display: inline;" class="display-label"></label>
+		</div>
+	</div>
+</div>
+<table id="tab" border="1" style="table-layout:fixed; width:100%;"></table>
+<div style="text-align: right; margin-top: 10px;">
+	<span class="m-badge" style="background-color: lightgreen;"></span>
+	<span>- подтверждено</span>
+	<span class="m-badge" style="background-color: lightcoral;"></span>
+	<span>- отклонено</span>
+	<span class="m-badge" style="background-color: lightgray;"></span>
+	<span>- удалено клиентом</span>
+</div>
+{% if outsourcing_request.comments %}
+	<div class="form-group m-form__group m--margin-top-10">
+		<div class="alert m-alert m-alert--default" role="alert">
+	<strong>Комментарий управляющего: </strong>{{ outsourcing_request.comments }}
+		</div>
+	</div>
+{% endif %}
+{% if outsourcing_request.reject_reason %}
+	<div class="form-group m-form__group m--margin-top-10">
+		<div class="alert m-alert m-alert--default" role="alert">
+	<strong>Причина отклонения: </strong>{{ outsourcing_request.reject_reason }}
+		</div>
+	</div>
+{% endif %}
+{% if outsource_enable %}
+<div class="m-portlet m-portlet--head-sm custom-shifts-portlet m-portlet--collapse" m-portlet="true" id="m_portlet_tools_7">
+	<div class="m-portlet__head">
+		<div class="m-portlet__head-caption">
+			<div class="m-portlet__head-title">
+				<label class="col-form-label">
+					Количество подтвержденных агентством смен на текущий момент
+				</label>
+			</div>
+		</div>
+		<div class="m-portlet__head-tools">
+			<ul class="m-portlet__nav">
+				<li class="m-portlet__nav-item">
+					<a href="#" m-portlet-tool="toggle" class="m-portlet__nav-link m-portlet__nav-link--icon"><i class="la la-angle-down"></i></a>	
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="m-portlet__body" style="display: none">
+		<div class="m-scrollable mCustomScrollbar _mCS_4 mCS-autoHide mCS_no_scrollbar" data-scrollbar-shown="true" data-scrollable="true" data-max-height="300" style="overflow: visible; height: 300px; max-height: 300px; position: relative;">
+			<div id="mCSB_4" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: 300px;">
+				<div id="mCSB_4_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+					<!--Таблица вывода подтвержденных смен-->
+					<table id="confirmed_shifts_table" border="1" style="table-layout:fixed; width:100%;"></table>
+				</div>
+			</div>
+			<div id="mCSB_4_scrollbar_vertical" class="mCSB_scrollTools mCSB_4_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical" style="display: none;">
+				<div class="mCSB_draggerContainer">
+					<div id="mCSB_4_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; top: 0px; display: block; height: 42px; max-height: 280px;">
+						<div class="mCSB_dragger_bar" style="line-height: 50px;"></div>
+					</div>
+					<div class="mCSB_draggerRail"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% if outsourcing_request.state == 'accepted' and request.page.party == 'agency' and outsource_enable %}
+	<button type="button" class="btn btn-primary" id="accept-shift">Подтвердить</button>
+	<button type="button" class="btn btn-warning" id="reject-shift">Отклонить</button>
+{% endif %}
+<a href="#" onclick="history.back();" class="btn btn-secondary" id="back">Назад</a>
+
+<!-- Модальное окно удаления функции -->
+<div class="modal fade" id="modal_reject_confirm"  role="dialog"style="display: none;" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+		<input type="hidden" name="job_history_id" id="modal_form_delete_job_history_id">
+		<h5 class="modal-title">Причина отклонения</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">×</span>
+		</button>
+		</div>
+		<div class="modal-body">
+			<div class="form-group m-form__group row">
+				<label for="docs_list" class="col-2 col-form-label">Причина</label>
+				<div class="col-10">
+					<textarea name="reject_reason" data-required id="reject_reason" class="form-control m-input" type="text" rows="3"></textarea>
+					<span id="reject_reason-help" class="m-form__help text-danger" style="display: none;"></span>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-success" id="modal_reject_confirm_btn">Подтвердить</button>
+		<button type="button" class="btn btn-secondary" id="modal_reject_cancel_btn" data-dismiss="modal">Отмена</button>
+		</div>
+	</div>
+	</div>
+</div>
+<!-- end вкладка функции-->
+
+{% endblock page-content-body %}
+

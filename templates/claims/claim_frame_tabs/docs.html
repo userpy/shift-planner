@@ -1,0 +1,39 @@
+<!-- docs tab template -->
+<script type="text/x-template" id="claims-tab-docs_template">
+	<div class="col-inner" ref="col-body">
+			<table class="light-table la-fixed">
+				<thead>
+					<tr>
+						<td>Название</td>
+						<td>Описание</td>
+						<td>Создан</td>
+						<td>Файл</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="row in docs">
+						<td v-text="row.filename"></td>
+						<td v-text="row.description"></td>
+						<td :text-content.prop="row.dt_created | fullDate"></td>
+						<td ><a :href="row.attachment">Загрузить</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<vue-loading-screen
+				v-if="isLoading"
+				:key="'loading'"
+				:target="colBody"
+				:backgroundColor="'white'"
+				:height-until="'allScreen'"
+			></vue-loading-screen>
+			<vue-loading-screen
+				v-if="!isLoading && isMounted && !docs.length"
+				:key="'empty'"
+				:target="colBody"
+				:message="'Нет данных для отображения'"
+				:type="'text'"
+				:height-until="'allScreen'"
+			></vue-loading-screen>
+		</div>
+</script>
+<!-- end closed tab template -->

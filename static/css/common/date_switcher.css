@@ -1,0 +1,74 @@
+.date-switcher{
+	position: fixed;
+	top: 14px;
+	left: 438px;
+}
+.date-switcher .month-select {
+	width: 150px;
+	margin-right: 15px;
+}
+.date-switcher .interval-prev-btn,
+.date-switcher .interval-next-btn {
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.date-switcher .interval-prev-btn {
+	margin-right: 8px;
+}
+
+.date-switcher .interval-next-btn {
+	margin-left: 8px !important;
+}
+
+.date-switcher .radius-left {
+	border-top-left-radius: 2px !important;
+	border-bottom-left-radius: 2px !important;
+}
+
+.date-switcher .radius-right {
+	border-top-right-radius: 2px !important;
+	border-bottom-right-radius: 2px !important;
+}
+
+.date-switcher .zoom-select {
+	position: fixed;
+	top: 15px;
+	right: 100px;
+	width: 100px;
+}
+
+.days-line {
+	user-select: none;
+	height: 100%;
+}
+
+.days-line > div {
+	height: 100%;
+}
+
+.days-line .item .label {
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.days-line .item .sline .sline-label-mid {
+	text-align: center;
+}
+
+.days-line .item.selected {
+	background: rgba(88, 103, 221, 0.2);
+}
+
+.days-line.clickable {
+	cursor: pointer;
+}
+
+.days-line .label {
+	border-right: 1px solid #ebedf2;
+}
+
+.days-line .sline {
+	opacity: 0.7;
+	font-size: 12px;
+}

@@ -1,0 +1,59 @@
+[
+  {
+    "model": "employees.employeeevent",
+    "pk": 1,
+    "fields": {
+      "user": 100,
+      "agency_employee": 1,
+      "agency": 1,
+      "dt_created": "2018-01-01",
+      "kind": "recruitment",
+      "headquater": 1,
+      "organization": 2,
+      "recruitment_date": "2017-01-01",
+      "dismissal_date": "2018-04-30",
+      "dismissal_reason": "Неправильно обслужил клиента",
+      "blacklist": true,
+      "ext_number": "org_1_emp_1",
+      "answer_received": true
+    }
+  },
+  {
+    "model": "employees.employeeevent",
+    "pk": 2,
+    "fields": {
+      "user": 100,
+      "agency_employee": 1,
+      "agency": 1,
+      "dt_created": "2017-01-30",
+      "kind": "dismissal",
+      "headquater": 1,
+      "organization": 2,
+      "recruitment_date": "2018-05-01",
+      "dismissal_date": "2018-12-31",
+      "dismissal_reason": "Неправильно обслужил 2 клиентов",
+      "blacklist": true,
+      "ext_number": "org_1_emp_2",
+      "answer_received": true
+    }
+  },
+  {
+    "model": "employees.employeeevent",
+    "pk": 3,
+    "fields": {
+      "user": 100,
+      "agency_employee": 2,
+      "agency": 1,
+      "dt_created": "2017-01-30",
+      "kind": "dismissal",
+      "headquater": 1,
+      "organization": 2,
+      "recruitment_date": "2017-01-01",
+      "dismissal_date": "2018-12-31",
+      "dismissal_reason": "Неправильно обслужил 2 клиентов",
+      "blacklist": true,
+      "ext_number": "org_1_emp_2",
+      "answer_received": true
+    }
+  }
+]

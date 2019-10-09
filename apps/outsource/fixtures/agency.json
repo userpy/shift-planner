@@ -1,0 +1,29 @@
+[
+  {
+    "model": "outsource.agency",
+    "pk": 1,
+    "fields": {
+      "name": "Агентство №1",
+      "code": "agency_1",
+      "headquater": 4
+    }
+  },
+  {
+    "model": "outsource.agency",
+    "pk": 2,
+    "fields": {
+      "name": "Агентство №2",
+      "code": "agency_2",
+      "headquater": 4
+    }
+  },
+  {
+    "model": "outsource.agency",
+    "pk": 3,
+    "fields": {
+      "name": "Агентство №3",
+      "code": "agency_3",
+      "headquater": 5
+    }
+  }
+]

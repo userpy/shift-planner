@@ -1,0 +1,10 @@
+{% load static %}
+{% load compress %}
+<div class="top-date-changer-nest"></div>
+</li>
+
+<link rel="stylesheet" href="{% static "css/common/date_switcher.css" %}" type="text/css" />
+<script>
+	var date_changer_mode = '{{ request.page.date_changer_mode }}'
+</script>
+<script src="{% static "js/pages/page_content_w_search/date_changer.js" %}"></script>

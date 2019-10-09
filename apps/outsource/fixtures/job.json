@@ -1,0 +1,34 @@
+[
+  {
+    "model": "outsource.job",
+    "pk": 1,
+    "fields": {
+      "name": "Функция №1",
+      "code": "job_1"
+    }
+  },
+  {
+    "model": "outsource.job",
+    "pk": 2,
+    "fields": {
+      "name": "Функция №2",
+      "code": "job_2"
+    }
+  },
+  {
+    "model": "outsource.job",
+    "pk": 3,
+    "fields": {
+      "name": "Функция №3",
+      "code": "job_3"
+    }
+  },
+  {
+    "model": "outsource.job",
+    "pk": 4,
+    "fields": {
+      "name": "Функция №4",
+      "code": "job_4"
+    }
+  }
+]

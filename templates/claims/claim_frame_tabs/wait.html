@@ -1,0 +1,101 @@
+<!-- wait tab template -->
+<script type="text/x-template" id="claims-tab-wait_template">
+	<div class="col-inner" ref="col-body">
+		<div v-if="detailed" class="block claim-detail">
+			<h3>
+				<span class="button f_n" v-on:click="onBackClick"><i class="fa fa-chevron-left"></i></span>
+				<span class="label" v-text="'Претензия '+ detailed.headquater.prefix + detailed.number"></span>
+			</h3>
+			<table class="lpair-table">
+				<tbody>
+				<tr>
+					<td>Вид претензии</td>
+					<td v-text="detailed.claim_type.name"></td>
+				</tr>
+				<tr>
+					<td>Агентство</td>
+					<td v-text="detailed.agency.name"></td>
+				</tr>
+				<tr>
+					<td>Открыта</td>
+					<td :text-content.prop="detailed.dt_created | fullDate"></td>
+				</tr>
+				<tr class="row-no-padding-top">
+					<td>Статус</td>
+					<td>
+						<span style="float: left;padding: 8px 8px 0 0;">На рассмотрении</span>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<div class="text">
+				<div v-text="detailed.text" style="padding-bottom: 10px"></div>
+				<a v-if="detailed.attachments" v-for="f in detailed.attachments" :href="f.attachment" v-text="f.filename +' '" target="_blank"></a>
+			</div>
+		</div>
+		<div v-if="detailed" class="block claim-detail">
+			<h3>&nbsp;</h3>
+			<div class="comment-form">
+				<textarea class="comment-area" placeholder="Ваше сообщение" v-model="comment"></textarea>
+				<div class="report-block cf">
+					<button class="button green-but borderless" v-on:click="onCreateClick">Отправить</button>
+					<input class="files-input f_r" style="margin-left:16px;"  type="file" v-on:change="onFilesChange" multiple></input>
+				</div>
+				<div class="report-block cf">
+					<div class="report-status"
+						:style="{color: reportStatus && reportStatus.type == 'error' ? 'red' : 'grey'}"
+						v-text="reportStatus && reportStatus.message"
+					></div>
+				</div>
+			</div>
+			<messages :messages="messages"></messages>
+			<br>
+			<br>
+		</div>
+		<div v-if="!detailed">
+			<table class="light-table la-fixed">
+				<thead>
+				<tr>
+					<td>Номер</td>
+					<td class="agency-cell">Агентство</td>
+					<td>Вид претензии</td>
+					<td>Открыта</td>
+					<td class="text-cell">Текст</td>
+				</tr>
+				</thead>
+				<tbody>
+				<tr v-for="row in claims" class="cursor-pointer" v-on:click="onRowClick(row)">
+					<td v-text="row.number"></td>
+					<td v-text="row.agency.name" class="agency-cell"></td>
+					<td v-text="row.claim_type.name"></td>
+					<td :text-content.prop="row.dt_created | fullDate"></td>
+					<td v-text="row.shorTtext" class="text-cell"></td>
+				</tr>
+				</tbody>
+			</table>
+			<div style="margin: 20px 0">
+				<center>
+					<div class="button f_n" v-on:click="loadMoreRows" v-if="currPage < pages">Загрузить еще</div>
+					<div class="button f_n borderless disabled no-effects" v-on:click="loadMoreRows" v-if="currPage == pages">Достигнут конец списка</div>
+				</center>
+			</div>
+		</div>
+
+		<vue-loading-screen
+				v-if="isLoading"
+				:key="'loading'"
+				:target="colBody"
+				:backgroundColor="'white'"
+				:height-until="'allScreen'"
+		></vue-loading-screen>
+		<vue-loading-screen
+				v-if="!isLoading && isMounted && !claims.length"
+				:key="'empty'"
+				:target="colBody"
+				:message="'Нет данных для отображения'"
+				:type="'text'"
+				:height-until="'allScreen'"
+		></vue-loading-screen>
+	</div>
+</script>
+<!-- end wait tab template -->

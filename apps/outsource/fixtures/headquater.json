@@ -1,0 +1,47 @@
+[
+  {
+    "model": "outsource.headquater",
+    "pk": 1,
+    "fields": {
+      "name": "Клиент №1",
+      "code": "hq_1",
+      "party": "client"
+    }
+  },
+  {
+    "model": "outsource.headquater",
+    "pk": 2,
+    "fields": {
+      "name": "Клиент №2",
+      "code": "hq_2",
+      "party": "client"
+    }
+  },
+  {
+    "model": "outsource.headquater",
+    "pk": 3,
+    "fields": {
+      "name": "Клиент №3",
+      "code": "hq_3",
+      "party": "client"
+    }
+  },
+  {
+    "model": "outsource.headquater",
+    "pk": 4,
+    "fields": {
+      "name": "Агентство №1",
+      "code": "ag_1",
+      "party": "agency"
+    }
+  },
+  {
+    "model": "outsource.headquater",
+    "pk": 5,
+    "fields": {
+      "name": "Агентство №2",
+      "code": "ag_2",
+      "party": "agency"
+    }
+  }
+]

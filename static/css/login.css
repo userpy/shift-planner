@@ -1,0 +1,24 @@
+.m-login__form input{ /* потому что в ие разъезжалось */
+	padding: 12px 24px!important;
+}
+.btn-verme{
+	background: white;
+	color: #5867dd;
+	border: 1px solid #5867dd;
+}
+.btn-verme:hover{
+	color: #121e82!important;
+	background: #005aff0a!important;
+}
+.btn-mvideo{
+	background: #ED1C24;
+	color: white;
+	border: 1px solid #ED1C24;
+}
+.btn-mvideo:hover{
+	color: white!important;
+	background: #b11116!important;
+}
+.m-login__options a{
+	margin: 12px;
+}

@@ -1,0 +1,169 @@
+html, body{
+	height: 100%;
+}
+.custom-select-box{
+	padding: 0;
+	width: 100%;
+}
+.custom-select-box .csb-label{
+	padding: 9px
+}
+textarea{
+	width: 100%;
+	min-height: 50px;
+	padding: 9px
+}
+.lpair-table tr{
+	margin: 8px 0;
+}
+.lpair-table td{
+	vertical-align: middle;
+}
+.validation-error{
+	background: #fff0f0 !important;
+}
+input[type="file"].validation-error{
+	border: 1px solid #fff0f0 !important;
+}
+.two-cols-widget .col-right{
+	width: calc(100% - 290px);
+}
+.report-block .button,
+.report-block input{
+	margin-top: 20px;
+}
+.report-status{
+	font-size: 12px;
+	padding: 12px 0;
+	width: 300px;
+}
+.light-table .text-cell{
+	width: 30%;
+	min-width: 280px;
+}
+.light-table .agency-cell{
+	width: 20%;
+	min-width: 280px;
+}
+.cursor-pointer{
+	cursor: pointer;
+}
+.claim-detail h3 .label{
+	padding-top: 9px;
+	padding-left: 3px;
+	display: inline-block;
+}
+.claim-detail .messages{
+	width: 450px;
+}
+.claim-detail .report-block input
+.claim-detail .report-block .button{
+	margin-top: 8px;
+}
+.claim-detail .text{
+	padding: 20px 0;
+	opacity: 0.7;
+	max-width: 240px;
+}
+.claim-detail .text a,
+.message a{
+	display: block;
+	padding-bottom: 5px;
+	font-weight: normal;
+	font-size: 12px;
+}
+.comment-block .comment-area{
+	width: 344px;
+	min-height: 193px;
+}
+.claim-detail .comment-area{
+	width: 450px;
+	min-height: 193px;
+}
+.comment-block .lpair-table td{
+	vertical-align: top;
+}
+.comment-block .lpair-table .text-label{
+	padding-top: 15px;
+}
+.comment-area{
+	width: 33%;
+}
+.messages{
+	margin-top: 10px;
+}
+.message{
+	max-width: 400px;
+	background: whitesmoke;
+	padding: 8px;
+	border-radius: 2px;
+	margin: 19px;
+	min-width: 80%;
+	margin-top: 0;
+	overflow: hidden;
+}
+.message.from-client{
+	margin-left: 20px;
+	margin-right: 0;
+	float: right;
+}
+.message.from-agency{
+	margin-right: 20px;
+	margin-left: 0;
+	float: left;
+}
+.message .author{
+	font-weight: bold;
+	display: inline-block;
+	font-size: 14px;
+}
+.message .hq{
+	display: inline-block;
+	opacity: 0.6;
+}
+.message .body{
+	opacity: 0.95;
+	padding: 8px 0;
+	line-height: 17px;
+	overflow: hidden;
+}
+.message .files span{
+	opacity: 0.95;
+	padding: 0px 8px 8px 0;
+	display: inline-block;
+}
+.message .date{
+	text-align: right;
+	opacity: 0.6;
+	font-size: 12px;
+}
+.message .shadow:after{
+	content: '';
+	display: none;
+	width: 100%;
+	box-shadow: 0px 0px 12px 9px rgb(245, 245, 245);
+	display: block;
+}
+.message .shadow{
+	height: 10px;
+}
+.message.short .shadow{
+	display: block;
+	position: relative;
+}
+.message.short .body{
+	max-height: 72px;
+}
+.row-no-padding-top td{
+	padding-top: 0
+}
+.detailed .lpair-table td:nth-child(1){
+	width: 133px;
+}
+.two-cols-widget .col-right{
+	height: 100%;
+	overflow-y: auto;
+}
+.block:nth-child(2) {
+	margin-right: 0;
+}

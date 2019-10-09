@@ -1,0 +1,68 @@
+<!-- create tab template -->
+<script type="text/x-template" id="claims-tab-create_template">
+	<div class="col-inner" ref="col-body">
+		<div class="block">
+			<h3>Создание претензии</h3>
+			<table class="lpair-table">
+				<tbody>
+					<tr>
+						<td>Вид претензии</td>
+						<td v-on:change="onClaimTypeChange">
+							<vue-select-box
+								:options="claimTypes"
+								:selected-options="selectedClaimType"
+								:params="{classes:['claim-type-select'], old:['width-100prsnts']}"
+							></vue-select-box>
+						</td>
+					</tr>
+					<tr>
+						<td>Агентство</td>
+						<td v-on:change="onAgencyChange">
+							<vue-select-box
+								:options="optsForAgencySelect"
+								:selected-options="selectedAgency"
+								:params="{classes:['agencies-select'], old:['width-100prsnts']}"
+							></vue-select-box>
+						</td>
+					</tr>
+					<tr>
+						<td>Файлы</td>
+						<td>
+							<input class="files-input" type="file" v-on:change="onFilesChange" multiple></input>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="report-block cf">
+				<button class="button green-but borderless" v-on:click="onCreateClick">Отправить претензию</button>
+				<button class="button no-effects square-purple-butt" style="margin-left: 16px;" v-on:click="onClearClick">Очистить форму</button>
+			</div>
+			<div class="report-block cf">
+				<div class="report-status"
+					:style="{color: reportStatus && reportStatus.type == 'error' ? 'red' : 'grey'}" 
+					v-text="reportStatus && reportStatus.message"
+				></div>
+			</div>
+		</div>
+		<div class="block comment-block">
+			<h3>&nbsp;</h3>	
+			<table class="lpair-table">
+				<tbody>
+					<tr>
+						<td class="text-label">Текст</td>
+						<td>
+							<textarea class="comment-area" v-model="claimComment"></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<vue-loading-screen
+			v-if="isLoading"
+			:target="colBody"
+			:backgroundColor="'white'"
+			:height-until="'allScreen'"
+		></vue-loading-screen>
+	</div>
+	</script>
+	<!-- end create tab template -->

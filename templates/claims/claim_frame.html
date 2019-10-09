@@ -1,0 +1,212 @@
+{% load static %}
+{% load compress %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- saved from url=(0014)about:internet -->
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta http-equiv="msthemecompatible" content="no"/>
+
+		<link rel="stylesheet" href="{% static "frames/claims/css/reset.css" %}" type="text/css" />
+		<link rel="stylesheet" href="{% static "frames/claims/css/main.css" %}" type="text/css" />
+
+		<link rel="stylesheet" href="{% static "frames/claims/css/custom-select-box.css" %}" type="text/css" />
+		<link rel="stylesheet" href="{% static "frames/claims/css/default-inputs.css" %}" type="text/css" />
+		<link rel="stylesheet" href="{% static "frames/claims/css/custom-progressbar.css" %}" type="text/css" />
+		<link rel="stylesheet" href="{% static "frames/claims/css/popup.css" %}" type="text/css" />
+
+
+		<link rel="stylesheet" href="{% static "frames/claims/css/tables.css" %}" type="text/css" />
+		<link rel="stylesheet" href="{% static "frames/claims/css/font_awesome.css" %}" type="text/css" />
+		<link rel="stylesheet" href="{% static "frames/claims/css/loading-page-screen.css" %}" type="text/css" />
+		<link rel="stylesheet" href="{% static "frames/claims/css/loading-screen.css" %}" type="text/css" />
+		<link rel="stylesheet" href="{% static "frames/claims/css/two-cols-widget.css" %}" type="text/css" />
+		<link rel="stylesheet" href="{% static "frames/claims/css/pagination.css" %}" type="text/css" />
+
+		<link rel="stylesheet" href="{% static "frames/claims/css/claims.css" %}" type="text/css" />
+
+		<link rel="stylesheet" type="text/css" href="{% static "frames/claims/css/ie-fixes.css" %}" />
+	</head>
+	<body class="loading-page">
+		<div class="loading-page-screen">
+			<div class="fixed-content">
+				<i class="fa fa-spinner fa-spin"></i>
+				<div class="page-info">
+					<div class="page-name">Загрузка</div>
+					<div class="page-description">Претензии</div>
+				</div>
+			</div>
+		</div>
+		<div class="claims-nest"></div>
+		<script src="{% static "frames/claims/js/main.js" %}"></script>
+		<script src="{% static "frames/claims/js/ui/init_events.js" %}"></script>
+		<script src="{% static "frames/claims/js/ui/utils.js" %}"></script>
+		<script src="{% static "frames/claims/js/ui/custom_alert.js" %}"></script>
+		<script src="{% static "frames/claims/js/ui/popup.js" %}"></script>
+		<script src="{% static "js/plugins/ae.js" %}"></script>
+		<script src="{% static "js/plugins/custom_select_box.js" %}"></script>
+		<script src="{% static "js/plugins/loading_screen.js" %}"></script>
+		<script src="{% static "js/plugins/custom_progressbar.js" %}"></script>
+		{% if DEBUG %}
+			<script src="{% static "js/plugins/vue.js" %}"></script>
+		{% else %}
+			<script src="{% static "js/plugins/vue.min.js" %}"></script>
+		{% endif %}
+
+		<div class="forms hidden">
+			<link href="{% static "frames/claims/css/forms.css" %}" rel="stylesheet">
+			<script src="{% static "frames/claims/js/forms.js" %}"></script>
+			{% if debug %}
+			<input id="token_form" placeholder="Authorize Key" name="token"><br>
+			<input id="organization_form" placeholder="Код организации" name="code">
+			<input id="headquater_form" placeholder="Код headquater" name="code">
+			<input id="username_form" placeholder="ФИО пользователя" name="code">
+			<input id="email_form" placeholder="Email пользователя" name="code">
+			<input id="period_start_form" placeholder="Дата начала" name="code">
+			<input id="period_end_form" placeholder="Дата окончания" name="code">
+			{% else %}
+			<input id="token_form" type="hidden" name="token" value="{{ key }}">
+			<input id="organization_form" type="hidden" name="code" value="{{ organization }}">
+			<input id="headquater_form" type="hidden" name="code" value="{{ headquater }}">
+			<input id="username_form" type="hidden" name="code" value="{{ user_name }}">
+			<input id="email_form" type="hidden" name="code" value="{{ email }}">
+			<input id="period_start_form" type="hidden" name="code" value="{{ period_start }}">
+			<input id="period_end_form" type="hidden" name="code" value="{{ period_end }}">
+			{% endif %}
+		</div>
+{% include "base/components/vue_components.html" %}
+<script>
+	var maxFileSizeMB = {{ max_filesize }}
+	var maxFileSize = maxFileSizeMB * 1000000
+</script>
+<script type="text/template" id="custom_loading_screen_template">
+	<div class="d-t">
+		<div class="d-tr">
+			<div class="d-td">
+				<div class="icon">
+					<i class="fa fa-spinner"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+{% if not org_found %}
+	<script>
+	document.body.classList.remove('loading-page')
+	LoadingScreen.showFor(document.body, {
+		message: 'Данная орг. единица отсуствует на портале Аутсорсинга',
+		messageColor: '#4a5266',
+		backgroundColor: 'white',
+		heightUntil: 'allScreen'
+	})
+	</script>
+{% endif %}
+<!-- main template -->
+<script type="text/x-template" id="claims_template">
+<div class="two-cols-widget" ref="widget-body">
+	<div class="col-left">
+		<template v-for="tab in tabs">
+			<div class="tab" 
+				v-if="tab.isVisible()"
+				:data-code="tab.code" 
+				:class="selectedTab && tab.code == selectedTab.code ? 'selected' : ''" 
+				v-on:click="onTabClick(tab)">
+				<span v-text="tab.name" ></span>
+				<div
+					v-if="tab.iconLeft"
+					class="left-icon fa"
+					:class="tab.iconLeft"
+				></div>
+			</div>
+			<template v-for="childTab in tab.childs">
+				<div class="tab child-tab" 
+					v-if="childTab.isVisible()"
+					v-text="childTab.name" 
+					:data-code="childTab.code" 
+					:class="selectedTab && childTab.code == selectedTab.code ? 'selected' : ''" 
+					v-on:click="onTabClick(childTab)"
+				></div>
+			</template>
+		</template>
+	</div>
+	<div class="col-right" ref="right-col-body">
+		<component v-if="selectedTab" 
+			v-bind:is="selectedTab.getCompName()"
+			:should-tab-be-reloaded="shouldTabBeReloaded"
+		></component>
+	</div>
+	<vue-loading-screen
+		v-if="isLoading"
+		:key="'loading'"
+		:target="widgetBody"
+		:backgroundColor="'white'"
+	></vue-loading-screen>
+	<vue-loading-screen
+		v-if="disabledMessage"
+		:key="'empty'"
+		:message="disabledMessage"
+		:target="widgetBody"
+		:type="'text'"
+	></vue-loading-screen>
+</div>
+</script>
+<!-- end main template -->
+{% include "claims/claim_frame_tabs/create.html" %}
+
+{% include "claims/claim_frame_tabs/wait.html" %}
+
+{% include "claims/claim_frame_tabs/accept.html" %}
+
+{% include "claims/claim_frame_tabs/reject.html" %}
+
+{% comment %}{% include "claim_frame_tabs/open.html" %}{% endcomment %}
+
+{% include "claims/claim_frame_tabs/closed.html" %}
+
+{% include "claims/claim_frame_tabs/docs.html" %}
+
+<!-- messages template -->
+<script type="text/x-template" id="messages_template">
+	<div class="messages short" v-on:click="handleClick">
+		<div class="message short" v-for="m in messages" :class="m.party == 'client' ? 'from-client' : 'from-agency'">
+			<div class="author" v-text="m.user_name"></div>
+			<div class="hq" v-text="m.party_detail"></div>
+			<div class="body" v-text="m.text"></div>
+			<div class="shadow"></div>
+			<div class="files" v-if="m.attachments && m.attachments.length">
+				<a v-for="f in m.attachments":href="f.attachment" v-text="f.filename + ' '" target="_blank"></a>
+			</div>
+			<div class="date" :text-content.prop="m.dt_created | fullDate"></div>
+		</div>
+	</div>
+</script>
+<!-- end messages template -->
+<!-- pages template -->
+<script type="text/x-template" id="pagination_template">
+	<div class="pagination">
+		<div class="page" v-for="page in pages" v-on:click="onclick(page)" v-text="page" :class="currPage == page ? 'selected' : ''"></div>
+	</div>
+</script>
+<!-- end pages template -->
+
+
+{% if org_found %}
+	<script src="{% static "frames/claims/js/xhr.js" %}"></script>
+	<script src="{% static "frames/claims/js/claims/claims.js" %}"></script>
+	<script src="{% static "frames/claims/js/claims/tabs/create.js" %}"></script>
+	<script src="{% static "frames/claims/js/claims/tabs/wait.js" %}"></script>
+	<script src="{% static "frames/claims/js/claims/tabs/accept.js" %}"></script>
+	<script src="{% static "frames/claims/js/claims/tabs/reject.js" %}"></script>
+	{% comment %}
+		<script src="{% static "frames/claims/js/claims/tabs/open.js" %}"></script>
+	{% endcomment %}
+	<script src="{% static "frames/claims/js/claims/tabs/closed.js" %}"></script>
+	<script src="{% static "frames/claims/js/claims/tabs/documents.js" %}"></script>
+	<script src="{% static "frames/claims/js/init.js" %}"></script>
+{% endif %}
+	</body>
+</html>

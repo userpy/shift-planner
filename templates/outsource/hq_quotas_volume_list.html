@@ -1,0 +1,183 @@
+<!--
+Copyright 2018 ООО «Верме»
+Страница списка квот для клиента портала аутсорсинга.
+-->
+
+{% extends "base/page_content_w_search.html" %}
+{% load static %}
+{% load compress %}
+
+{% block page-js %}
+	<script>
+		var csrf_token = '{{ csrf_token }}'
+
+	</script>
+	{% compress js %}
+		<script src="{% static "js/datepicker_language_ru.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/outsource_requests.js" %}" type="text/javascript"></script>
+
+		<script src="{% static "js/pages/common/tables_l10n.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/common/common_selectors.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/common/table_reloader.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/common/table_cell_values.js" %}" type="text/javascript"></script>
+
+		<script src="{% static "js/pages/hq_quotas_volume_list/main.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/hq_quotas_volume_list/tables.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/hq_quotas_volume_list/event_handlers.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/hq_quotas_volume_list/modals/import.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/hq_quotas_volume_list/modals/export.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/hq_quotas_volume_list/modals/edit_quota.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/hq_quotas_volume_list/modals/delete_quotas.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/pages/hq_quotas_volume_list/datepicker.js" %}" type="text/javascript"></script>
+		<script src="{% static "js/datepicker_language_ru.js" %}" type="text/javascript"></script>
+	{% endcompress %}
+
+{% endblock page-js %}
+
+{% block page-content-search %}
+	<div class="col-xl-8 order-2 order-xl-1">
+		<div class="form-group m-form__group row align-items-center">
+			<div class="col-md-3">
+				<div class="m-form__group m-form__group--inline container">
+					<div class="m-form__control">
+						<select class="form-control m-bootstrap-select" id="area_select">
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-4 order-1 order-xl-2 m--align-right">
+		<div class="dropdown pull-right">
+			<button class="btn btn-accent m-btn m-btn--air m-btn--custom btn btn-brand dropdown-toggle" type="button" id="action_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 177px;">
+				Действия
+			</button>
+			<div class="dropdown-menu" aria-labelledby="action_button">
+				<a href="#" id="add_quota_dd_button" class="dropdown-item btn">Добавить ограничение квоты</a>
+				<a href="#" id="delete_quotas_button" class="mass_action dropdown-item">Удалить ограничение квоты</a>
+				<hr/>
+				<a href="#" id="import_quotas_button" class="dropdown-item btn">Импорт из Excel</a>
+				<a href="#" id="export_quotas_button" class="dropdown-item">Экспорт в Excel</a>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- Модальное импорта -->
+	<div class="modal fade" id="modal_import_quota"  role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="docs_modal_title">Загрузка данных из Excel файла</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group m-form__group row">
+					<label for="doc_text" class="col-2 col-form-label">Файл</label>
+					<div class="col-7">
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" name="file_to_import" id="file_to_import">
+							<label class="custom-file-label" for="file_to_import">Выберите файл</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="import_submit_button" type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom" accept=".xls,.xlsx">Импорт</button>
+			</div>
+		</div>
+		</div>
+	</div>
+	<!-- Модальное окно импорта -->
+	<!-- Модальное удаления -->
+	<div class="modal fade" id="modal_mass_delete_quota"  role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="docs_modal_title">Удаление ограничений квот</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<span id="modal_mass_delete_body"></span>
+			</div>
+			<div class="modal-footer">
+				<button id="mass_delete_quota_button" type="button" class="btn btn-danger m-btn m-btn--air m-btn--custom">Удалить</button>
+				<button id="mass_delete_quota_cancel_button"data-bb-handler="cancel" type="button" class="btn btn-secondary m-btn--air">Отмена</button>
+			</div>
+		</div>
+		</div>
+	</div>
+	<!-- Модальное окно удаления -->
+	<!-- Модальное редактирования -->
+	<div class="modal fade" id="modal_edit_quota"  role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="quota_modal_title">Редактирование</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group m-form__group row">
+					<label class="col-2 col-form-label">Магазин</label>
+					<div class="col-7">
+						<select id="store_select_pp"></select>
+						<span id="store_id-help" class="m-form__help text-danger" style="display: none;"></span>
+					</div>
+				</div>
+				<div class="form-group m-form__group row">
+					<label class="col-2 col-form-label">Зона</label>
+					<div class="col-7">
+						<select id="area_select_pp"></select>
+						<span id="area_id-help" class="m-form__help text-danger" style="display: none;"></span>
+					</div>
+				</div>
+				<div class="form-group m-form__group row">
+					<label class="col-2 col-form-label">Максимум</label>
+					<div class="col-7">
+						<input class="form-control m-input" type="number" id="value_input">
+						<span id="value_id-help" class="m-form__help text-danger" style="display: none;"></span>
+					</div>
+				</div>
+				<div class="form-group m-form__group row">
+					<label for="job_start" class="col-2 col-form-label">Действует</label>
+					<div class="col-7">
+						<div class="input-daterange input-group" id="m_datepicker_5">
+							<input type="text" class="form-control datepicker col-6" name="quota_volume_start" id="quota_volume_start">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
+							</div>
+							<input type="text" class="form-control datepicker col-6" name="quota_volume_end" id="quota_volume_end">
+						</div>
+						<span id="start-help" class="m-form__help text-danger" style="display: none;"></span>
+						<span id="end-help" class="m-form__help text-danger" style="display: none;"></span>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="modal-controls modal-controls--default">
+					<button id="edit_quota_submit_button" type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom">Сохранить</button>
+					<button id="edit_quota_delete_button" type="button" class="btn btn-danger m-btn m-btn--air m-btn--custom">Удалить</button>
+				</div>
+				<div class="modal-controls modal-controls--confirm">
+					<span class="controls-tip m--font-danger"></span>
+					<button id="edit_quota_submit_action_button" type="button" class="btn btn-danger m-btn m-btn--air m-btn--custom">Да</button>
+					<button id="edit_quota_cancel_action_button" type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom">Нет</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<!-- Модальное окно редактирования -->
+{% endblock page-content-search %}
+{% block page-content-body %}
+	<!--begin: Datatable -->
+	<div class="m_datatable" id="ajax_data"></div>
+	<!--end: Datatable -->
+{% endblock page-content-body %}

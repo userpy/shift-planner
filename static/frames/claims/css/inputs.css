@@ -1,0 +1,325 @@
+
+.buttons-group {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 0;
+}
+.buttons-group input,
+.buttons-group button,
+.buttons-group select,
+.buttons-group .button,
+.buttons-group .custom-select-box,
+.buttons-group .togglable-checkbox.button {
+  margin: 0 !important;
+  border-radius: 0;
+  border-right: none;
+  font-size: 14px;
+}
+.buttons-group input:nth-child(1),
+.buttons-group button:nth-child(1),
+.buttons-group select:nth-child(1),
+.buttons-group .button:nth-child(1),
+.buttons-group .custom-select-box:nth-child(1),
+.buttons-group .togglable-checkbox.button:nth-child(1) {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+.buttons-group input:nth-last-child(1),
+.buttons-group button:nth-last-child(1),
+.buttons-group select:nth-last-child(1),
+.buttons-group .button:nth-last-child(1),
+.buttons-group .custom-select-box:nth-last-child(1),
+.buttons-group .togglable-checkbox.button:nth-last-child(1) {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-right: 1px solid #e6e8ed;
+}
+button.active,
+.button.active {
+  background: #325595;
+  color: #fff;
+}
+button.active i,
+.button.active i {
+  color: #fff;
+}
+button.active:active,
+.button.active:active {
+  box-shadow: none;
+}
+button.active:hover,
+.button.active:hover {
+  background: #325595;
+}
+input,
+button,
+select,
+.button,
+.custom-select-box,
+.togglable-checkbox.button {
+  display: inline-block;
+  cursor: pointer;
+  height: 36px;
+  border: 1px solid #e6e8ed;
+  border-radius: 2px;
+  background-color: #fff;
+  padding: 12px 5px;
+  padding-top: 10px;
+  font-size: 14px;
+  vertical-align: top;
+  user-select: none;
+}
+input:hover,
+button:hover,
+select:hover,
+.button:hover,
+.custom-select-box:hover,
+.togglable-checkbox.button:hover {
+  background: #d6dae2;
+}
+input:active,
+button:active,
+select:active,
+.button:active,
+.custom-select-box:active,
+.togglable-checkbox.button:active {
+  border-color: #ededed;
+  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.2);
+}
+input.large-font,
+button.large-font,
+select.large-font,
+.button.large-font,
+.custom-select-box.large-font,
+.togglable-checkbox.button.large-font {
+  font-size: 14px;
+}
+input.bold-font,
+button.bold-font,
+select.bold-font,
+.button.bold-font,
+.custom-select-box.bold-font,
+.togglable-checkbox.button.bold-font {
+  font-weight: bold;
+}
+input.white-background,
+button.white-background,
+select.white-background,
+.button.white-background,
+.custom-select-box.white-background,
+.togglable-checkbox.button.white-background {
+  background: #fff;
+}
+input.green-but,
+button.green-but,
+select.green-but,
+.button.green-but,
+.custom-select-box.green-but,
+.togglable-checkbox.button.green-but {
+  color: #fff;
+  background: #0f9a5e;
+  border-radius: 3px;
+}
+input.green-but:active,
+button.green-but:active,
+select.green-but:active,
+.button.green-but:active,
+.custom-select-box.green-but:active,
+.togglable-checkbox.button.green-but:active {
+  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.2);
+}
+input.green-but:active,
+button.green-but:active,
+select.green-but:active,
+.button.green-but:active,
+.custom-select-box.green-but:active,
+.togglable-checkbox.button.green-but:active,
+input.green-but:hover,
+button.green-but:hover,
+select.green-but:hover,
+.button.green-but:hover,
+.custom-select-box.green-but:hover,
+.togglable-checkbox.button.green-but:hover {
+  background: #0f7549;
+}
+input.green-but.disabled,
+button.green-but.disabled,
+select.green-but.disabled,
+.button.green-but.disabled,
+.custom-select-box.green-but.disabled,
+.togglable-checkbox.button.green-but.disabled {
+  background: #d3d3d3;
+  pointer-events: none;
+}
+input.borderless,
+button.borderless,
+select.borderless,
+.button.borderless,
+.custom-select-box.borderless,
+.togglable-checkbox.button.borderless {
+  border: 1px solid transparent;
+  padding-top: 10px;
+}
+input.no-effects,
+button.no-effects,
+select.no-effects,
+.button.no-effects,
+.custom-select-box.no-effects,
+.togglable-checkbox.button.no-effects {
+  border: none;
+  background: transparent;
+}
+input.no-effects:active,
+button.no-effects:active,
+select.no-effects:active,
+.button.no-effects:active,
+.custom-select-box.no-effects:active,
+.togglable-checkbox.button.no-effects:active {
+  box-shadow: none;
+}
+input.no-effects:active,
+button.no-effects:active,
+select.no-effects:active,
+.button.no-effects:active,
+.custom-select-box.no-effects:active,
+.togglable-checkbox.button.no-effects:active,
+input.no-effects:hover,
+button.no-effects:hover,
+select.no-effects:hover,
+.button.no-effects:hover,
+.custom-select-box.no-effects:hover,
+.togglable-checkbox.button.no-effects:hover {
+  background: transparent;
+}
+input.purple-text,
+button.purple-text,
+select.purple-text,
+.button.purple-text,
+.custom-select-box.purple-text,
+.togglable-checkbox.button.purple-text {
+  color: #e5286b;
+}
+input.square-butt,
+button.square-butt,
+select.square-butt,
+.button.square-butt,
+.custom-select-box.square-butt,
+.togglable-checkbox.button.square-butt {
+  padding: 12;
+}
+input.square-purple-butt,
+button.square-purple-butt,
+select.square-purple-butt,
+.button.square-purple-butt,
+.custom-select-box.square-purple-butt,
+.togglable-checkbox.button.square-purple-butt {
+  color: #e5286b;
+}
+input.square-purple-butt:hover,
+button.square-purple-butt:hover,
+select.square-purple-butt:hover,
+.button.square-purple-butt:hover,
+.custom-select-box.square-purple-butt:hover,
+.togglable-checkbox.button.square-purple-butt:hover {
+  color: #fff;
+  background: #e5286b;
+}
+input.disabled,
+button.disabled,
+select.disabled,
+.button.disabled,
+.custom-select-box.disabled,
+.togglable-checkbox.button.disabled {
+  pointer-events: none;
+  color: #808080;
+}
+input.disabled:active,
+button.disabled:active,
+select.disabled:active,
+.button.disabled:active,
+.custom-select-box.disabled:active,
+.togglable-checkbox.button.disabled:active {
+  box-shadow: none;
+}
+input.disabled:active,
+button.disabled:active,
+select.disabled:active,
+.button.disabled:active,
+.custom-select-box.disabled:active,
+.togglable-checkbox.button.disabled:active,
+input.disabled:hover,
+button.disabled:hover,
+select.disabled:hover,
+.button.disabled:hover,
+.custom-select-box.disabled:hover,
+.togglable-checkbox.button.disabled:hover {
+  background: transparent;
+}
+button {
+  padding-top: 12px;
+}
+.button.with-icon {
+  position: relative;
+  padding-right: 36px;
+}
+.button.with-icon .icon {
+  position: absolute;
+  top: 9px;
+  right: 6px;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  pointer-events: none;
+}
+.button.with-icon .icon:before {
+  width: 1px;
+  background: #e6e8ed;
+  content: '';
+  height: 16px;
+  left: -6px;
+  top: 0;
+  position: absolute;
+}
+.button.with-icon .icon img {
+  width: 100%;
+  height: 100%;
+}
+input,
+select {
+  background: #fff;
+}
+input:hover,
+select:hover {
+  background: #fff;
+}
+input:focus,
+select:focus {
+  border-color: #bbc1cd;
+}
+input:active,
+select:active {
+  box-shadow: none;
+}
+input:invalid {
+  background: #fff0f0 !important;
+}
+.inline-text-button {
+  display: inline-block;
+  color: #249fed;
+  cursor: pointer;
+}
+.inline-text-button.fa2:before {
+  padding-right: 5px;
+}
+.custom-tooltip {
+  top: 0;
+  left: 0;
+  position: fixed;
+  padding: 5px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 3px;
+  box-shadow: 0px 0px 10px 0px #d6dae3;
+  max-width: 300px;
+  z-index: 8;
+  pointer-events: none;
+}

@@ -1,0 +1,21 @@
+
+
+{% load static %}
+{% load compress %}
+{% compress js %}
+	{% if DEBUG %}
+	<script src="{% static "js/plugins/vue.js" %}"></script>
+	{% else %}
+	<script src="{% static "js/plugins/vue.min.js" %}"></script>
+	{% endif %}
+	<script src="{% static "js/plugins/usable_with_jquery/ae.js" %}"></script>
+	<script src="{% static "js/plugins/usable_with_jquery/custom_select_box.js" %}"></script>
+	<script src="{% static "js/plugins/usable_with_jquery/loading_screen.js" %}"></script>
+	<script src="{% static "js/plugins/usable_with_jquery/vue_components.js" %}"></script>
+	<script src="{% static "js/plugins/usable_with_jquery/time_input.js" %}"></script>
+	<script src="{% static "js/plugins/usable_with_jquery/button_time_input.js" %}"></script>
+	<script src="{% static "js/plugins/usable_with_jquery/input_dropdowns.js" %}"></script>
+	
+	<link rel="stylesheet" href="{% static "css/common/violation_warnings.css" %}" type="text/css" />
+	<script src="{% static "js/plugins/usable_with_jquery/violation_warnings.js" %}"></script>
+{% endcompress %}

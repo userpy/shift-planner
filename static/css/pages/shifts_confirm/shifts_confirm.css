@@ -1,0 +1,22 @@
+.title-row{
+	height: auto!important;
+	padding: 16px 0;
+}
+.title-row .tips{
+	height: auto;
+	padding: 8px 0;
+}
+.title-row .tips span{
+	margin-right: 30px;
+}
+.legend span{
+	margin-right: 16px;
+}
+.second-portlet-header{
+	font-size: 12px!important;
+	vertical-align: baseline;
+	position: relative;
+	top: 1px;
+	margin-left: 12px!important;
+	color: grey!important;
+}

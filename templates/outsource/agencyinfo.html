@@ -1,0 +1,145 @@
+<style>
+    .col-form-label {
+        color:#6c7293;
+        font-weight: bold;
+    }
+    table {
+		font-size:13px;
+	}
+    table td, .col-8 div {
+        color: #6c7293;
+    }
+    .col-info {
+        padding:12px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: auto;
+        margin: 0 auto;
+        line-height: 1em;
+    }
+    .modal-content .modal-body {
+        overflow-y: scroll; 
+        max-height: 420px
+    }
+</style>
+<div class="form-group m-form__group row" style="margin:-20px"> 
+    <label class="col-4 col-form-label" style="text-align:right">
+        Название
+        <span style="padding-right:1em">&nbsp;</span>
+    </label>
+    <div class="col-8">
+        <div class="col-info">
+            {{ agency.name }}
+        </div>
+    </div>
+</div>	
+<!--div class="form-group m-form__group row" style="margin:-20px">
+    <label class="col-4 col-form-label" style="text-align:right">
+        Полное название
+        <span style="padding-right:1em">&nbsp;</span>
+    </label>
+    <div class="col-8">
+        <div class="col-info">
+            {{ agency.full_name}}
+        </div>
+    </div>
+</div-->
+<div class="form-group m-form__group row" style="margin:-20px"> 
+    <label class="col-4 col-form-label" style="text-align:right">
+        Адрес
+        <span style="padding-right:1em">&nbsp;</span>
+    </label>
+    <div class="col-8">
+        <div class="col-info">
+            {{ agency.address }}
+        </div>
+    </div>
+</div>
+<!--div class="form-group m-form__group row" style="margin:-20px">
+    <label class="col-4 col-form-label" style="text-align:right">
+        Фактический адрес
+        <span style="padding-right:1em">&nbsp;</span>
+    </label>
+    <div class="col-8">
+        <div class="col-info">
+            {{ agency.actual_address }}
+        </div>
+    </div>
+</div-->
+<div class="form-group m-form__group row" style="margin:-20px"> 
+    <label class="col-4 col-form-label" style="text-align:right">
+        Телефон
+        <span style="padding-right:1em">&nbsp;</span>
+    </label>
+    <div class="col-8">
+        <div class="col-info">
+            {{ agency.phone }}
+        </div>
+    </div>
+</div>
+
+<!--div class="form-group m-form__group row" style="margin:-20px">
+    <label class="col-4 col-form-label" style="text-align:right">
+        Web-сайт
+        <span style="padding-right:1em">&nbsp;</span>
+    </label>
+    <div class="col-8">
+        <div class="col-info">
+            <a href="http://{{ agency.site }}" target="_blank">{{ agency.site }}</a>
+        </div>
+    </div>
+</div>
+<div class="form-group m-form__group row" style="margin:-20px"> 
+    <label class="col-4 col-form-label" style="text-align:right">
+        E-mail
+        <span style="padding-right:1em">&nbsp;</span>
+    </label>
+    <div class="col-8">
+        <div class="col-info">
+            <a href="mailto:{{ agency.email }}">{{ agency.email }}</a>
+        </div>
+    </div>
+</div>
+<div class="form-group m-form__group row" style="margin:-20px"> 
+    <label class="col-4 col-form-label" style="text-align:right">
+        Описание
+        <span style="padding-right:1em">&nbsp;</span>
+    </label>
+    <div class="col-8">
+        <div style="padding-top:15px;padding-bottom:20px;line-height:1em">
+            {{ agency.description }}
+        </div>
+    </div>
+</div-->
+<div class="form-group m-form__group row" style="margin:-20px"> 
+    <label class="col-4 col-form-label" style="text-align:right">
+        Супервайзеры
+        <span style="padding-right:1em">&nbsp;</span>
+    </label>
+    <div class="col-8">
+        <div class="col-info">
+                {% for manager in agency.agencymanager_set.all %}
+                {% if forloop.first %}
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>ФИО</th>
+                            <th>Должность</th>
+                            <th>Телефон</th>
+                            <th>E-mail</th>
+                        </tr>
+                    </thead>
+                {% endif %}
+                    <tr>
+                        <td>{{manager.full_name}}</td>
+                        <td>{{manager.position}}</td>
+                        <td>{{manager.phone}}</td>
+                        <td><a href="mailto:{{ manager.email }}">{{manager.email}}</a></td>    
+                    </tr>
+                {% if forloop.last %}
+                </table>
+                    {% endif %}
+                    {% endfor %}
+        </div>
+    </div>
+</div>
